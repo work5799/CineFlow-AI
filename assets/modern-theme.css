@@ -656,3 +656,58 @@ button.bg-zinc-900:hover {
   border-color: rgba(63, 63, 70, 0.9) !important;
   color: #e4e4e7 !important;
 }
+
+/* Dual Columns Side-by-Side in 1 line */
+.cineflow-control-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 1.25rem !important;
+  align-items: center !important;
+}
+
+@media (max-width: 900px) {
+  .cineflow-control-row {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+.cineflow-tabs-3 {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0.5rem !important;
+}
+
+.cineflow-tab-btn-compact {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 0.55rem 0.5rem !important;
+  min-height: 52px !important;
+  border-radius: 0.75rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  position: relative !important;
+  user-select: none !important;
+}
+
+.cineflow-tab-btn-compact.active {
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.18) 0%, rgba(0, 204, 82, 0.28) 100%) !important;
+  border: 1px solid #00ff66 !important;
+  box-shadow: 0 0 16px rgba(0, 255, 102, 0.25), inset 0 0 8px rgba(0, 255, 102, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.cineflow-tab-btn-compact.inactive {
+  background: #0a0b12 !important;
+  border: 1px solid rgba(39, 39, 42, 0.8) !important;
+  color: #a1a1aa !important;
+}
+
+.cineflow-tab-btn-compact.inactive:hover {
+  background: #12131f !important;
+  border-color: rgba(63, 63, 70, 0.9) !important;
+  color: #e4e4e7 !important;
+}
