@@ -1230,3 +1230,173 @@ div:has(> #storyboard-file-input) {
   border-color: #22c55e !important;
   box-shadow: 0 0 10px rgba(34, 197, 94, 0.45) !important;
 }
+
+
+/* ==========================================================================
+   CineFlow AI — Luxury Modern Footer & Dynamic Page Animations
+   ========================================================================== */
+
+/* Modern Cyber Footer Container */
+.cineflow-footer-container {
+  background: linear-gradient(180deg, rgba(7, 13, 8, 0.95) 0%, #030604 100%) !important;
+  border-top: 1px solid rgba(74, 222, 128, 0.22) !important;
+  position: relative !important;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6), 0 -1px 20px rgba(34, 197, 94, 0.08) !important;
+}
+
+.cineflow-footer-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(74, 222, 128, 0.8) 50%, transparent 100%);
+  animation: borderGlowSweep 6s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlowSweep {
+  0% {
+    opacity: 0.3;
+    transform: scaleX(0.7);
+  }
+  100% {
+    opacity: 0.95;
+    transform: scaleX(1);
+  }
+}
+
+.cineflow-footer-logo-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: radial-gradient(circle at 30% 30%, #152e1b, #030805);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.3);
+  transition: all 0.3s ease;
+}
+
+.cineflow-footer-logo-box:hover {
+  transform: scale(1.08) rotate(3deg);
+  border-color: #00ff66;
+  box-shadow: 0 0 24px rgba(0, 255, 102, 0.5);
+}
+
+.cineflow-footer-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 5px;
+  color: #00ff66;
+  background: rgba(0, 255, 102, 0.12);
+  border: 1px solid rgba(0, 255, 102, 0.35);
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.2);
+}
+
+.cineflow-footer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: rgba(12, 22, 15, 0.8);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  font-size: 11px;
+  font-weight: 600;
+  color: #bbf7d0;
+  letter-spacing: 0.02em;
+  transition: all 0.25s ease;
+}
+
+.cineflow-footer-pill:hover {
+  background: rgba(21, 128, 61, 0.3);
+  border-color: rgba(74, 222, 128, 0.6);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 12px rgba(34, 197, 94, 0.2);
+}
+
+/* Page Animations */
+
+/* 1. Flowing Shimmer on Hero Title Highlight */
+h1 span.text-blue-400 {
+  background: linear-gradient(120deg, #38bdf8 0%, #4ade80 35%, #00ff66 70%, #38bdf8 100%) !important;
+  background-size: 250% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: heroTitleFlow 7s ease-in-out infinite !important;
+  display: inline-block !important;
+}
+
+@keyframes heroTitleFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 2. Pulsing Glow Dot on Hero Live Badge */
+.inline-flex.items-center.gap-2.px-3\.5 span.w-2.h-2,
+.cineflow-hero-section div.inline-flex span.w-2.h-2 {
+  background-color: #00ff66 !important;
+  box-shadow: 0 0 10px #00ff66, 0 0 20px #00ff66 !important;
+  animation: radarPingPulse 2.2s ease-in-out infinite !important;
+}
+
+@keyframes radarPingPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 8px #00ff66;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.85;
+    box-shadow: 0 0 16px #00ff66, 0 0 24px rgba(0, 255, 102, 0.6);
+  }
+}
+
+/* 3. Workflow Steps Cards Interactive Staggered Float & Shine */
+.py-8.px-4.max-w-7xl .grid > div,
+.py-6.px-4.max-w-7xl .grid > div {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.py-8.px-4.max-w-7xl .grid > div:hover,
+.py-6.px-4.max-w-7xl .grid > div:hover {
+  transform: translateY(-5px) scale(1.02) !important;
+  border-color: rgba(74, 222, 128, 0.6) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.6), 0 0 25px rgba(34, 197, 94, 0.2) !important;
+}
+
+/* 4. Prompt Box Animated Reveal & Glow */
+#section-master-commercial-prompt,
+#section-video-master-prompt {
+  animation: promptCardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@keyframes promptCardReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 5. Smooth Floating Star Accent on Logo */
+.cineflow-nav-logo-box:hover img,
+.cineflow-footer-logo-box:hover img {
+  filter: drop-shadow(0 0 10px rgba(0, 255, 102, 0.8));
+}
