@@ -14355,9 +14355,24 @@ function P1() {
                                     })
                                 ]
                             }),
-                            f.jsx("span", {
-                                className: "text-zinc-600 text-[10px]",
-                                children: "© 2026 CineFlow AI • Next-Gen Commercial Architecture"
+                            f.jsxs("div", {
+                                className: "flex items-center gap-1.5 text-[11px] text-zinc-500",
+                                children: [
+                                    f.jsx("span", {
+                                        className: "text-zinc-500",
+                                        children: "© 2026 CineFlow AI •"
+                                    }),
+                                    f.jsxs("span", {
+                                        className: "inline-flex items-center gap-1 text-zinc-400",
+                                        children: [
+                                            "Developed by",
+                                            f.jsx("span", {
+                                                className: "font-bold text-emerald-400 cineflow-hexerit-glow",
+                                                children: "Hexerit"
+                                            })
+                                        ]
+                                    })
+                                ]
                             })
                         ]
                     })

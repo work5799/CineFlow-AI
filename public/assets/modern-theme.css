@@ -1400,3 +1400,16 @@ h1 span.text-blue-400 {
 .cineflow-footer-logo-box:hover img {
   filter: drop-shadow(0 0 10px rgba(0, 255, 102, 0.8));
 }
+
+
+.cineflow-hexerit-glow {
+  color: #4ade80 !important;
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.45) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  transition: all 0.25s ease !important;
+}
+.cineflow-hexerit-glow:hover {
+  color: #00ff66 !important;
+  text-shadow: 0 0 14px rgba(0, 255, 102, 0.7) !important;
+}
