@@ -62,26 +62,18 @@ Your mission is to take an uploaded multi-panel commercial storyboard (and hero 
 Target Duration: Exactly ${chosenDuration}.0 Seconds
 Target Language: ${langLabel}
 
-The output must be a single, cohesive, copy-ready prompt formatted for Google Flow and Google Veo with second-by-second timeline precision, camera moves, lighting, ${langLabel} voiceover script, and sound design.`;
+CRITICAL FORMATTING RULES:
+1. STRICTLY DO NOT output any campaign title, product metadata headers, aspect ratio, render engine specs, markdown hashes (#, ##, ###), bold asterisks (**), or horizontal dividers (---).
+2. DO NOT include "COPY DIRECTLY INTO GOOGLE FLOW / VEO" or any preliminary chatter.
+3. Start IMMEDIATELY with the scene directive and timeline breakdown.
+4. Output must be 100% clean, copy-ready plain text for direct use in Google Flow and Google Veo.`;
 
   const userPrompt = `Analyze the uploaded commercial storyboard for "${productName}".
 Identify the sequential panels, camera trajectories, lighting, and pacing.
 
-Now, construct the UNIFIED ${chosenDuration}-SECOND MASTER COMMERCIAL PROMPT FOR GOOGLE FLOW / GOOGLE VEO with ${langLabel} voiceover script.
+Now, construct the pure, clean UNIFIED ${chosenDuration}-SECOND VIDEO COMMERCIAL PROMPT FOR GOOGLE FLOW / GOOGLE VEO with ${langLabel} voiceover script.
 
-Follow this standard production format:
-
-# 🎥 CINEFLOW AI — UNIFIED ${chosenDuration}.0s MASTER COMMERCIAL PROMPT (GOOGLE FLOW & VEO)
-**Campaign Title:** [High-Impact TVC Title]
-**Product:** ${productName}
-**Duration:** Exactly ${chosenDuration}.0 Seconds (Broadcast Television & Digital Ad Standard)
-**Aspect Ratio:** 16:9 Cinema Scope / 4K UHD
-**Render Engine:** Google Veo 2 / Google Flow Cinematic Engine
-**Voiceover Language:** ${langLabel}
-
----
-
-### 📋 COPY DIRECTLY INTO GOOGLE FLOW / VEO:
+STRICT RULE: Do NOT include any campaign title, metadata header, or dividers. Start directly with:
 
 [SCENE DIRECTIVE: ${chosenDuration}.0-SECOND CONTINUOUS TELEVISION COMMERCIAL]
 Cinematic television commercial for "${productName}". Hyper-realistic 8K broadcast quality, shot on Arri Alexa 65 with 35mm anamorphic lens, f/1.8 shallow depth of field, photorealistic reflections, natural motion blur.
@@ -121,11 +113,23 @@ Color Grade: High-contrast luxury commercial grade, vibrant saturation, deep bla
       temperature: 0.35
     });
 
-    const outputText = result.text;
+    let cleanPrompt = (result.text || '')
+      .replace(/^#+\s*🎥.*$/gm, '')
+      .replace(/^\*\*Campaign Title:\*\*.*$/gm, '')
+      .replace(/^\*\*Product:\*\*.*$/gm, '')
+      .replace(/^\*\*Duration:\*\*.*$/gm, '')
+      .replace(/^\*\*Aspect Ratio:\*\*.*$/gm, '')
+      .replace(/^\*\*Render Engine:\*\*.*$/gm, '')
+      .replace(/^\*\*Voiceover Language:\*\*.*$/gm, '')
+      .replace(/^#+\s*📋\s*COPY DIRECTLY.*$/gim, '')
+      .replace(/^#+\s*/gm, '')     // Remove heading hashes (#, ##, ###)
+      .replace(/\*\*/g, '')        // Remove bold asterisks (**)
+      .replace(/^---+\s*$/gm, '')  // Remove horizontal rule lines (---)
+      .trim();
 
     // Detect panel count
     let panelsIdentified = 4;
-    const panelMatches = outputText.match(/PANEL\s*\d|⏱️\s*\d+\.\d+s/gi);
+    const panelMatches = cleanPrompt.match(/PANEL\s*\d|⏱️\s*\d+\.\d+s|SCENE\s*\d/gi);
     if (panelMatches && panelMatches.length >= 3) {
       panelsIdentified = Math.min(panelMatches.length, 6);
     }
@@ -134,7 +138,7 @@ Color Grade: High-contrast luxury commercial grade, vibrant saturation, deep bla
       success: true,
       data: {
         panelsIdentified,
-        videoMasterPrompt: outputText
+        videoMasterPrompt: cleanPrompt
       }
     });
   } catch (err) {
