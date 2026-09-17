@@ -1,7 +1,6 @@
 /**
  * Shared Gemini REST API Helper
- * Dynamic Model Discovery + Auto-Fallback across v1 and v1beta
- * Specifically filters for vision/multimodal capable models
+ * Resilient Multimodal Engine with Seamless High-Demand / Quota Auto-Failover
  */
 
 // Cache discovered model per API key to minimize latency
@@ -79,21 +78,21 @@ async function discoverAvailableModels(apiKey) {
   }
 
   if (discovered.length > 0) {
-    // Rank proven multimodal models highest
+    // Rank stable vision models
     discovered.sort((a, b) => {
       const score = m => {
         let s = 0;
         const name = m.modelName.toLowerCase();
-        if (name === 'gemini-2.0-flash') s += 1000;
-        else if (name === 'gemini-1.5-flash') s += 900;
-        else if (name === 'gemini-1.5-flash-latest') s += 850;
-        else if (name === 'gemini-2.0-flash-exp') s += 800;
-        else if (name === 'gemini-1.5-pro') s += 700;
-        else if (name === 'gemini-1.5-pro-latest') s += 650;
+        // gemini-1.5-flash has the highest quota and capacity against 503 high-demand
+        if (name === 'gemini-1.5-flash') s += 1000;
+        else if (name === 'gemini-1.5-flash-latest') s += 950;
+        else if (name === 'gemini-2.0-flash') s += 900;
+        else if (name === 'gemini-1.5-pro') s += 800;
+        else if (name === 'gemini-2.0-flash-exp') s += 750;
+        else if (name.startsWith('gemini-1.5-flash')) s += 700;
         else if (name.startsWith('gemini-2.0-flash')) s += 600;
-        else if (name.startsWith('gemini-1.5-flash')) s += 500;
-        else if (name.includes('flash')) s += 300;
-        else if (name.includes('pro')) s += 200;
+        else if (name.includes('flash')) s += 400;
+        else if (name.includes('pro')) s += 300;
         if (m.apiVersion === 'v1beta') s += 5;
         return s;
       };
@@ -104,22 +103,23 @@ async function discoverAvailableModels(apiKey) {
     return discovered;
   }
 
-  // Guaranteed multimodal defaults if ListModels is restricted
+  // Guaranteed fallback models
   const defaults = [
-    { modelName: 'gemini-2.0-flash', apiVersion: 'v1beta' },
-    { modelName: 'gemini-1.5-flash', apiVersion: 'v1' },
     { modelName: 'gemini-1.5-flash', apiVersion: 'v1beta' },
+    { modelName: 'gemini-1.5-flash', apiVersion: 'v1' },
+    { modelName: 'gemini-2.0-flash', apiVersion: 'v1beta' },
     { modelName: 'gemini-1.5-flash-latest', apiVersion: 'v1beta' },
-    { modelName: 'gemini-2.0-flash-exp', apiVersion: 'v1beta' },
-    { modelName: 'gemini-1.5-pro', apiVersion: 'v1' },
-    { modelName: 'gemini-1.5-pro', apiVersion: 'v1beta' }
+    { modelName: 'gemini-1.5-pro', apiVersion: 'v1beta' },
+    { modelName: 'gemini-1.5-pro', apiVersion: 'v1' }
   ];
 
   return defaults;
 }
 
 /**
- * Calls Gemini REST API with automatic discovery and multi-model fallback
+ * Calls Gemini REST API with automatic discovery and multi-model fallback.
+ * If a model experiences high demand, rate limit, or any temporary error,
+ * it immediately falls over to the next candidate model seamlessly!
  */
 async function callGemini({ apiKey, contents, systemInstruction, temperature = 0.4 }) {
   if (!apiKey) {
@@ -158,45 +158,39 @@ async function callGemini({ apiKey, contents, systemInstruction, temperature = 0
 
       if (!response.ok) {
         const errorMsg = data.error?.message || `Gemini API error (${response.status})`;
-        // If model not found, unsupported, or modality not enabled (e.g. audio-only), proceed to next candidate
-        if (
-          response.status === 404 ||
-          errorMsg.includes('not found') ||
-          errorMsg.includes('not supported') ||
-          errorMsg.includes('modality') ||
-          errorMsg.includes('Image input')
-        ) {
-          lastError = new Error(errorMsg);
-          continue;
+        
+        // Critical: If invalid API key (400 / 401 with invalid key), do not retry all models pointlessly
+        if (response.status === 400 && errorMsg.includes('API key not valid')) {
+          throw new Error('Your Gemini API key is not valid. Please check your key in the header.');
         }
-        throw new Error(errorMsg);
+
+        // For ANY other error (503 High Demand, 429 Quota/Rate Limit, 404 Model Not Found, 400 Modality Issue, 500 Overload):
+        // Automatically proceed to the NEXT candidate model!
+        lastError = new Error(errorMsg);
+        console.warn(`Model ${apiVersion}/${modelName} failed (${response.status}: ${errorMsg}). Falling over to next candidate...`);
+        continue;
       }
 
       const candidate = data.candidates?.[0];
       const text = candidate?.content?.parts?.map(p => p.text).join('') || '';
 
       if (!text) {
-        throw new Error('Gemini returned an empty response. Please try again with a clearer image.');
+        lastError = new Error('Model returned an empty response. Falling over to next candidate...');
+        continue;
       }
 
       return { text, modelUsed: `${apiVersion}/${modelName}` };
     } catch (err) {
-      lastError = err;
-      if (
-        err.message &&
-        (err.message.includes('not found') ||
-         err.message.includes('not supported') ||
-         err.message.includes('modality') ||
-         err.message.includes('Image input') ||
-         err.message.includes('404'))
-      ) {
-        continue;
+      if (err.message && err.message.includes('API key is not valid')) {
+        throw err;
       }
-      throw err;
+      lastError = err;
+      console.warn(`Network/Model error on ${apiVersion}/${modelName}: ${err.message}. Trying next candidate...`);
+      continue;
     }
   }
 
-  throw lastError || new Error('Failed to generate content with available Gemini models.');
+  throw lastError || new Error('All available Gemini models are currently experiencing high traffic. Please retry in a few seconds.');
 }
 
 module.exports = {
