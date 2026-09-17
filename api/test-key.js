@@ -3,7 +3,7 @@
  * Validates whether the provided Gemini API key is active and authorized.
  */
 
-const { resolveApiKey } = require('./_gemini');
+const { resolveApiKey, discoverAvailableModels } = require('./_gemini');
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,14 +28,16 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // Perform a lightweight probe to verify key validity
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const candidates = await discoverAvailableModels(apiKey);
+    const target = candidates[0] || { modelName: 'gemini-2.0-flash', apiVersion: 'v1beta' };
+
+    const url = `https://generativelanguage.googleapis.com/${target.apiVersion}/models/${target.modelName}:generateContent?key=${encodeURIComponent(apiKey)}`;
     
     const testResponse = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: 'Hello' }] }],
+        contents: [{ parts: [{ text: 'ping' }] }],
         generationConfig: { maxOutputTokens: 5 }
       })
     });
@@ -43,13 +45,14 @@ module.exports = async function handler(req, res) {
     const data = await testResponse.json();
 
     if (!testResponse.ok) {
-      // Try fallback to gemini-1.5-flash if 2.0 returns 404
-      const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+      // Try next candidate if first fails
+      const fallback = candidates[1] || { modelName: 'gemini-1.5-flash', apiVersion: 'v1' };
+      const fallbackUrl = `https://generativelanguage.googleapis.com/${fallback.apiVersion}/models/${fallback.modelName}:generateContent?key=${encodeURIComponent(apiKey)}`;
       const fallbackRes = await fetch(fallbackUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: 'Hello' }] }],
+          contents: [{ parts: [{ text: 'ping' }] }],
           generationConfig: { maxOutputTokens: 5 }
         })
       });
