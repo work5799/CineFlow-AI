@@ -33,7 +33,9 @@ module.exports = async function handler(req, res) {
     storyboardMimeType = 'image/png',
     productBase64,
     productMimeType = 'image/jpeg',
-    productName = 'Hero Product'
+    productName = 'Hero Product',
+    duration = 10,
+    language = 'bangla'
   } = req.body || {};
 
   if (!storyboardBase64) {
@@ -46,57 +48,46 @@ module.exports = async function handler(req, res) {
   const rawStoryboard = cleanBase64(storyboardBase64);
   const rawProduct = productBase64 ? cleanBase64(productBase64) : null;
 
-  const systemInstruction = `You are CineFlow AI, an elite Commercial Film Director and AI Video Commercial Architect specializing in Google Flow, Google Veo, and cinematic video synthesis.
-Your mission is to take an uploaded multi-panel commercial storyboard (and hero product reference) and craft the final, unified 10.0-second television commercial production prompt.
+  const validDurations = [10, 25, 30];
+  const chosenDuration = validDurations.includes(Number(duration)) ? Number(duration) : 10;
+  const chosenLanguage = ['bangla', 'english', 'hindi'].includes(String(language).toLowerCase())
+    ? String(language).toLowerCase()
+    : 'bangla';
 
-The output must be a single, cohesive, copy-ready prompt formatted for Google Flow and Google Veo with second-by-second timeline precision, camera moves, lighting, Bengali voiceover script, and sound design.`;
+  const langLabel = chosenLanguage === 'bangla' ? 'বাংলা' : chosenLanguage === 'english' ? 'English' : 'हिंदी';
+
+  const systemInstruction = `You are CineFlow AI, an elite Commercial Film Director and AI Video Commercial Architect specializing in Google Flow, Google Veo, and cinematic video synthesis.
+Your mission is to take an uploaded multi-panel commercial storyboard (and hero product reference) and craft the final, unified ${chosenDuration}.0-second television commercial production prompt.
+
+Target Duration: Exactly ${chosenDuration}.0 Seconds
+Target Language: ${langLabel}
+
+The output must be a single, cohesive, copy-ready prompt formatted for Google Flow and Google Veo with second-by-second timeline precision, camera moves, lighting, ${langLabel} voiceover script, and sound design.`;
 
   const userPrompt = `Analyze the uploaded commercial storyboard for "${productName}".
 Identify the sequential panels, camera trajectories, lighting, and pacing.
 
-Now, construct the UNIFIED 10-SECOND MASTER COMMERCIAL PROMPT FOR GOOGLE FLOW / GOOGLE VEO.
+Now, construct the UNIFIED ${chosenDuration}-SECOND MASTER COMMERCIAL PROMPT FOR GOOGLE FLOW / GOOGLE VEO with ${langLabel} voiceover script.
 
 Follow this standard production format:
 
-# 🎥 CINEFLOW AI — UNIFIED 10.0s MASTER COMMERCIAL PROMPT (GOOGLE FLOW & VEO)
+# 🎥 CINEFLOW AI — UNIFIED ${chosenDuration}.0s MASTER COMMERCIAL PROMPT (GOOGLE FLOW & VEO)
 **Campaign Title:** [High-Impact TVC Title]
 **Product:** ${productName}
-**Duration:** Exactly 10.0 Seconds (Broadcast Television & Digital Ad Standard)
+**Duration:** Exactly ${chosenDuration}.0 Seconds (Broadcast Television & Digital Ad Standard)
 **Aspect Ratio:** 16:9 Cinema Scope / 4K UHD
 **Render Engine:** Google Veo 2 / Google Flow Cinematic Engine
+**Voiceover Language:** ${langLabel}
 
 ---
 
 ### 📋 COPY DIRECTLY INTO GOOGLE FLOW / VEO:
 
-[SCENE DIRECTIVE: 10.0-SECOND CONTINUOUS TELEVISION COMMERCIAL]
+[SCENE DIRECTIVE: ${chosenDuration}.0-SECOND CONTINUOUS TELEVISION COMMERCIAL]
 Cinematic television commercial for "${productName}". Hyper-realistic 8K broadcast quality, shot on Arri Alexa 65 with 35mm anamorphic lens, f/1.8 shallow depth of field, photorealistic reflections, natural motion blur.
 
 [TIMELINE BREAKDOWN]:
-
-⏱️ 0.0s - 2.5s — THE CINEMATIC HOOK
-- Visual & Motion: Macro extreme close-up of ${productName}. Dramatic lighting sweeps across the packaging, highlighting the texture and brand identity. Slow cinematic dolly-in with rising atmospheric particles.
-- Camera: Low-angle tracking push-in at 60fps.
-- Voiceover (বাংলা): "[Persuasive Bengali hook line introducing freshness/quality - e.g. এক নতুন সজীবতার ছোঁয়া...]"
-- Sound Design: Deep sub-bass riser, subtle atmospheric shimmer, crisp macro acoustic textures.
-
-⏱️ 2.5s - 5.0s — DYNAMIC ACTION & INGREDIENT DYNAMICS
-- Visual & Motion: Rapid, seamless camera transition into dynamic product motion. Ingredients or refreshing droplets surge around the hero container in high-speed 120fps slow-motion capture.
-- Camera: 45-degree whip-pan transition into smooth rotational orbit.
-- Voiceover (বাংলা): "[Sensory product benefit line - e.g. প্রতিটি মুহূর্তে অনুভব করুন খাঁটি বিশুদ্ধতা ও আভিজাত্য...]"
-- Sound Design: Dynamic whoosh sweep, crisp liquid splash / acoustic hit, upbeat rhythmic commercial pulse.
-
-⏱️ 5.0s - 7.5s — HERO SPOTLIGHT & SENSORY REVELATION
-- Visual & Motion: ${productName} commands the center stage, bathed in warm cinematic rim light and studio softbox illumination. Flawless condensation and metallic/matte sheen on the label.
-- Camera: Slow-motion gliding pan, tracking across the surface geometry with organic camera breathing.
-- Voiceover (বাংলা): "[Emotional payoff line - e.g. যা আপনার প্রতিদিনকে করে তোলে অনন্য ও সতেজ...]"
-- Sound Design: Uplifting harmonic brass swell, warm resonant chords, satisfying acoustic click.
-
-⏱️ 7.5s - 10.0s — THE BROADCAST PAYOFF & LOGO RESOLUTION
-- Visual & Motion: Majestic hero lock-off shot on pristine obsidian pedestal. Radiant soft neon aura framing the product. Crisp broadcast logo resolution with tagline.
-- Camera: Gentle pull-back to wide commercial composition, rock-steady hold.
-- Voiceover (বাংলা): "[Memorable brand tagline - e.g. ${productName} — আপনার পছন্দের নির্ভরযোগ্য সঙ্গী।] "
-- Sound Design: Signature 3-note broadcast brand mnemonic chime, gentle acoustic fade-out.
+(Provide exact second-by-second scene breakdown covering 0.0s to ${chosenDuration}.0s, with Visual & Motion, Camera, Voiceover (${langLabel}), and Sound Design for each scene)
 
 [GLOBAL RENDER PARAMETERS]:
 Color Grade: High-contrast luxury commercial grade, vibrant saturation, deep blacks, anamorphic bokeh, broadcast TV master quality. No morphing, flawless packaging consistency with reference.`;

@@ -13113,6 +13113,10 @@ const K1 = [["path", {
   , W1 = ({productImage: E, productFileName: _, onImageSelected: U, onAnalyzeProduct: m, isAnalyzing: q, onClearProduct: R}) => {
     const J = nl.useRef(null)
       , [ll,M] = nl.useState(!1)
+      , [selDuration, setSelDuration] = nl.useState(window.__cineflow_duration || 10)
+      , [selLang, setSelLang] = nl.useState(window.__cineflow_language || "bangla")
+      , onSelectDuration = d => { setSelDuration(d); window.__cineflow_duration = d; }
+      , onSelectLang = l => { setSelLang(l); window.__cineflow_language = l; }
       , T = k => {
         var ol;
         const sl = (ol = k.target.files) == null ? void 0 : ol[0];
@@ -13155,7 +13159,7 @@ const K1 = [["path", {
                 children: [f.jsx("span", {
                     className: "w-2 h-2 rounded-full bg-blue-400"
                 }), f.jsx("span", {
-                    children: "Strict 10-Second Commercial Engine"
+                    children: selDuration + "-Second Commercial Engine • " + (selLang === "bangla" ? "বাংলা" : selLang === "english" ? "English" : "हिंदी")
                 })]
             }), f.jsxs("h1", {
                 className: "text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-100 max-w-4xl mx-auto leading-[1.12]",
@@ -13163,12 +13167,241 @@ const K1 = [["path", {
                     className: "hidden sm:inline"
                 }), f.jsx("span", {
                     className: "text-blue-400",
-                    children: "Into A 10-Second Commercial."
+                    children: "Into A " + selDuration + "-Second Commercial."
                 })]
             }), f.jsx("p", {
                 className: "text-xs sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed font-normal",
-                children: "Upload your product image. CineFlow AI formulates the complete 10-second television commercial campaign and generates ONE unified Master Commercial Prompt for Google Flow & Veo."
+                children: "Upload your product image. CineFlow AI formulates the complete " + selDuration + "-second television commercial campaign in " + (selLang === "bangla" ? "Bangla" : selLang === "english" ? "English" : "Hindi") + " and generates ONE unified Master Commercial Prompt for Google Flow & Veo."
             })]
+        }), f.jsxs("div", {
+            className: "rounded-2xl bg-[#12131C] border border-zinc-800 p-5 sm:p-6 shadow-sm space-y-5 max-w-7xl mx-auto relative z-10",
+            children: [
+                f.jsxs("div", {
+                    className: "space-y-3",
+                    children: [
+                        f.jsxs("div", {
+                            className: "flex items-center justify-between",
+                            children: [
+                                f.jsxs("div", {
+                                    className: "flex items-center gap-2",
+                                    children: [
+                                        f.jsxs("svg", {
+                                            className: "w-4 h-4 text-emerald-400 shrink-0",
+                                            fill: "none",
+                                            viewBox: "0 0 24 24",
+                                            stroke: "currentColor",
+                                            strokeWidth: "2",
+                                            children: [f.jsx("circle", { cx: "12", cy: "12", r: "10" }), f.jsx("polyline", { points: "12 6 12 12 16 14" })]
+                                        }),
+                                        f.jsx("span", {
+                                            className: "text-xs font-bold font-mono tracking-wider text-emerald-400 uppercase",
+                                            children: "Commercial Duration Mode"
+                                        })
+                                    ]
+                                }),
+                                f.jsx("span", {
+                                    className: "text-xs font-mono text-zinc-500",
+                                    children: "Single Source of Truth"
+                                })
+                            ]
+                        }),
+                        f.jsxs("div", {
+                            className: "cineflow-tabs-grid bg-[#090A0F] p-1.5 rounded-xl border border-zinc-800/80",
+                            children: [
+                                f.jsxs("button", {
+                                    type: "button",
+                                    onClick: () => onSelectDuration(10),
+                                    className: "cineflow-tab-btn " + (selDuration === 10 ? "active" : "inactive"),
+                                    children: [
+                                        f.jsxs("div", {
+                                            className: "flex items-center justify-center gap-2 mb-1.5",
+                                            children: [
+                                                f.jsx("span", {
+                                                    className: "text-sm font-bold font-mono " + (selDuration === 10 ? "text-emerald-400" : "text-zinc-300"),
+                                                    children: "[ 10 SEC ]"
+                                                }),
+                                                f.jsx("span", {
+                                                    className: "px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-sm",
+                                                    children: "DEFAULT"
+                                                })
+                                            ]
+                                        }),
+                                        f.jsx("div", {
+                                            className: "text-xs font-mono text-zinc-400",
+                                            children: "5 Scenes • Default Standard"
+                                        })
+                                    ]
+                                }),
+                                f.jsxs("button", {
+                                    type: "button",
+                                    onClick: () => onSelectDuration(25),
+                                    className: "cineflow-tab-btn " + (selDuration === 25 ? "active" : "inactive"),
+                                    children: [
+                                        f.jsxs("div", {
+                                            className: "flex items-center justify-center gap-2 mb-1.5",
+                                            children: [
+                                                f.jsx("span", {
+                                                    className: "text-sm font-bold font-mono " + (selDuration === 25 ? "text-emerald-400" : "text-zinc-300"),
+                                                    children: "[ 25 SEC ]"
+                                                }),
+                                                selDuration === 25 && f.jsx("span", {
+                                                    className: "px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-sm",
+                                                    children: "ACTIVE"
+                                                })
+                                            ]
+                                        }),
+                                        f.jsx("div", {
+                                            className: "text-xs font-mono text-zinc-400",
+                                            children: "8 Scenes • Richer Story"
+                                        })
+                                    ]
+                                }),
+                                f.jsxs("button", {
+                                    type: "button",
+                                    onClick: () => onSelectDuration(30),
+                                    className: "cineflow-tab-btn " + (selDuration === 30 ? "active" : "inactive"),
+                                    children: [
+                                        f.jsxs("div", {
+                                            className: "flex items-center justify-center gap-2 mb-1.5",
+                                            children: [
+                                                f.jsx("span", {
+                                                    className: "text-sm font-bold font-mono " + (selDuration === 30 ? "text-emerald-400" : "text-zinc-300"),
+                                                    children: "[ 30 SEC ]"
+                                                }),
+                                                selDuration === 30 && f.jsx("span", {
+                                                    className: "px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-sm",
+                                                    children: "ACTIVE"
+                                                })
+                                            ]
+                                        }),
+                                        f.jsx("div", {
+                                            className: "text-xs font-mono text-zinc-400",
+                                            children: "9 Scenes • Cinematic Film"
+                                        })
+                                    ]
+                                })
+                            ]
+                        }),
+                        f.jsx("p", {
+                            className: "text-center text-xs font-mono text-zinc-400 pt-0.5",
+                            children: selDuration === 10 ? "Compressed, high-impact commercial hook-to-payoff" : selDuration === 25 ? "Extended narrative commercial storytelling with deeper emotional arc" : "Full cinematic broadcast television spot with complete brand lore"
+                        })
+                    ]
+                }),
+                f.jsx("div", { className: "border-t border-zinc-800/80" }),
+                f.jsxs("div", {
+                    className: "space-y-3",
+                    children: [
+                        f.jsxs("div", {
+                            className: "flex items-center justify-between",
+                            children: [
+                                f.jsxs("div", {
+                                    className: "flex items-center gap-2",
+                                    children: [
+                                        f.jsxs("svg", {
+                                            className: "w-4 h-4 text-emerald-400 shrink-0",
+                                            fill: "none",
+                                            viewBox: "0 0 24 24",
+                                            stroke: "currentColor",
+                                            strokeWidth: "2",
+                                            children: [f.jsx("circle", { cx: "12", cy: "12", r: "10" }), f.jsx("line", { x1: "2", y1: "12", x2: "22", y2: "12" }), f.jsx("path", { d: "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" })]
+                                        }),
+                                        f.jsx("span", {
+                                            className: "text-xs font-bold font-mono tracking-wider text-emerald-400 uppercase",
+                                            children: "Commercial Voice & Script Language"
+                                        })
+                                    ]
+                                }),
+                                f.jsx("span", {
+                                    className: "text-xs font-mono text-zinc-500",
+                                    children: "Target Audience Locale"
+                                })
+                            ]
+                        }),
+                        f.jsxs("div", {
+                            className: "cineflow-tabs-grid bg-[#090A0F] p-1.5 rounded-xl border border-zinc-800/80",
+                            children: [
+                                f.jsxs("button", {
+                                    type: "button",
+                                    onClick: () => onSelectLang("bangla"),
+                                    className: "cineflow-tab-btn " + (selLang === "bangla" ? "active" : "inactive"),
+                                    children: [
+                                        f.jsxs("div", {
+                                            className: "flex items-center justify-center gap-2 mb-1.5",
+                                            children: [
+                                                f.jsx("span", {
+                                                    className: "text-sm font-bold font-mono " + (selLang === "bangla" ? "text-emerald-400" : "text-zinc-300"),
+                                                    children: "[ BANGLA ]"
+                                                }),
+                                                f.jsx("span", {
+                                                    className: "px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-sm",
+                                                    children: "DEFAULT"
+                                                })
+                                            ]
+                                        }),
+                                        f.jsx("div", {
+                                            className: "text-xs font-mono text-zinc-400",
+                                            children: "বাংলা • Local Bangladeshi Script"
+                                        })
+                                    ]
+                                }),
+                                f.jsxs("button", {
+                                    type: "button",
+                                    onClick: () => onSelectLang("english"),
+                                    className: "cineflow-tab-btn " + (selLang === "english" ? "active" : "inactive"),
+                                    children: [
+                                        f.jsxs("div", {
+                                            className: "flex items-center justify-center gap-2 mb-1.5",
+                                            children: [
+                                                f.jsx("span", {
+                                                    className: "text-sm font-bold font-mono " + (selLang === "english" ? "text-emerald-400" : "text-zinc-300"),
+                                                    children: "[ ENGLISH ]"
+                                                }),
+                                                selLang === "english" && f.jsx("span", {
+                                                    className: "px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-sm",
+                                                    children: "ACTIVE"
+                                                })
+                                            ]
+                                        }),
+                                        f.jsx("div", {
+                                            className: "text-xs font-mono text-zinc-400",
+                                            children: "English • Global TVC Script"
+                                        })
+                                    ]
+                                }),
+                                f.jsxs("button", {
+                                    type: "button",
+                                    onClick: () => onSelectLang("hindi"),
+                                    className: "cineflow-tab-btn " + (selLang === "hindi" ? "active" : "inactive"),
+                                    children: [
+                                        f.jsxs("div", {
+                                            className: "flex items-center justify-center gap-2 mb-1.5",
+                                            children: [
+                                                f.jsx("span", {
+                                                    className: "text-sm font-bold font-mono " + (selLang === "hindi" ? "text-emerald-400" : "text-zinc-300"),
+                                                    children: "[ HINDI ]"
+                                                }),
+                                                selLang === "hindi" && f.jsx("span", {
+                                                    className: "px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-sm",
+                                                    children: "ACTIVE"
+                                                })
+                                            ]
+                                        }),
+                                        f.jsx("div", {
+                                            className: "text-xs font-mono text-zinc-400",
+                                            children: "हिंदी • Indian Commercial Script"
+                                        })
+                                    ]
+                                })
+                            ]
+                        }),
+                        f.jsx("p", {
+                            className: "text-center text-xs font-mono text-zinc-400 pt-0.5",
+                            children: selLang === "bangla" ? "Authentic Bangladeshi voiceover with local colloquial hook & emotional resonance" : selLang === "english" ? "Prestigious international television commercial voiceover with crisp global appeal" : "High-energy, emotive Indian commercial voiceover with catchy Hindi punchlines"
+                        })
+                    ]
+                })
+            ]
         }), f.jsxs("div", {
             className: "relative z-10 max-w-7xl mx-auto",
             children: [f.jsx("input", {
@@ -13224,13 +13457,13 @@ const K1 = [["path", {
                                     children: [f.jsx(gf, {
                                         className: "w-4 h-4 animate-spin"
                                     }), f.jsx("span", {
-                                        children: "Formulating 10s Commercial Campaign..."
+                                        children: "Formulating " + selDuration + "s " + (selLang === "bangla" ? "Bangla" : selLang === "english" ? "English" : "Hindi") + " Campaign..."
                                     })]
                                 }) : f.jsxs(f.Fragment, {
                                     children: [f.jsx(Zn, {
                                         className: "w-4 h-4"
                                     }), f.jsx("span", {
-                                        children: "Generate Master Commercial Prompt"
+                                        children: "Generate " + selDuration + "s " + (selLang === "bangla" ? "Bangla" : selLang === "english" ? "English" : "Hindi") + " Commercial Prompt"
                                     })]
                                 })
                             })
@@ -13803,7 +14036,9 @@ function P1() {
                     },
                     body: JSON.stringify({
                         imageBase64: J,
-                        mimeType: M
+                        mimeType: M,
+                        duration: (window.__cineflow_duration || 10),
+                        language: (window.__cineflow_language || "bangla")
                     })
                 })
                   , N = await A.json();
@@ -13861,7 +14096,9 @@ function P1() {
                         storyboardMimeType: Bl,
                         productBase64: J,
                         productMimeType: M,
-                        productName: ((A = V == null ? void 0 : V.productIdentity) == null ? void 0 : A.productName) || "Hero Product"
+                        productName: ((A = V == null ? void 0 : V.productIdentity) == null ? void 0 : A.productName) || "Hero Product",
+                        duration: (window.__cineflow_duration || 10),
+                        language: (window.__cineflow_language || "bangla")
                     })
                 })
                   , B = await N.json();
