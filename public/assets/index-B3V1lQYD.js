@@ -13151,7 +13151,7 @@ const K1 = [["path", {
     }
     ;
     return f.jsxs("section", {
-        className: "relative pt-4 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto cineflow-hero-section",
+        className: "relative pt-16 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto cineflow-hero-section",
         children: [f.jsxs("div", {
             className: "text-center space-y-4 relative z-10",
             children: [f.jsxs("div", {
