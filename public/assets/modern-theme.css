@@ -1163,3 +1163,70 @@ div:has(> #storyboard-file-input) {
   box-shadow: 0 0 10px rgba(0, 255, 102, 0.25) !important;
   line-height: 1.1 !important;
 }
+
+
+/* CineFlow Duration 4-column Segment & Custom Panel */
+.cineflow-duration-bar {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 6px !important;
+  background: rgba(3, 8, 5, 0.9) !important;
+  padding: 4px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(39, 39, 42, 0.65) !important;
+}
+
+@media (max-width: 640px) {
+  .cineflow-duration-bar {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+.cineflow-custom-panel {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  padding: 10px 14px !important;
+  background: rgba(8, 16, 11, 0.92) !important;
+  border: 1px solid rgba(74, 222, 128, 0.28) !important;
+  border-radius: 10px !important;
+  margin-top: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.cineflow-custom-input-wrap {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.cineflow-custom-label {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #86efac !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.cineflow-custom-input {
+  width: 68px !important;
+  height: 32px !important;
+  background: #030604 !important;
+  border: 1px solid rgba(74, 222, 128, 0.4) !important;
+  color: #f0fdf4 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  font-family: monospace !important;
+  padding: 2px 8px !important;
+  border-radius: 6px !important;
+  text-align: center !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.cineflow-custom-input:focus {
+  border-color: #22c55e !important;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.45) !important;
+}

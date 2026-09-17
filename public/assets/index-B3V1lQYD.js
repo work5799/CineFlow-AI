@@ -13114,8 +13114,16 @@ const K1 = [["path", {
     const J = nl.useRef(null)
       , [ll,M] = nl.useState(!1)
       , [selDuration, setSelDuration] = nl.useState(window.__cineflow_duration || 10)
+      , [selScenes, setSelScenes] = nl.useState(window.__cineflow_scenes || (window.__cineflow_duration === 30 ? 9 : window.__cineflow_duration === 20 ? 7 : 5))
+      , [isCustom, setIsCustom] = nl.useState(Boolean(window.__cineflow_is_custom))
+      , [customSec, setCustomSec] = nl.useState(window.__cineflow_custom_sec || 20)
+      , [customScn, setCustomScn] = nl.useState(window.__cineflow_custom_scn || 7)
       , [selLang, setSelLang] = nl.useState(window.__cineflow_language || "bangla")
-      , onSelectDuration = d => { setSelDuration(d); window.__cineflow_duration = d; }
+      , onSelectPreset = (d, s) => { setIsCustom(false); window.__cineflow_is_custom = false; setSelDuration(d); window.__cineflow_duration = d; setSelScenes(s); window.__cineflow_scenes = s; }
+      , onSelectCustom = () => { setIsCustom(true); window.__cineflow_is_custom = true; setSelDuration(customSec); window.__cineflow_duration = customSec; setSelScenes(customScn); window.__cineflow_scenes = customScn; }
+      , onChangeCustomSec = val => { const num = Math.max(5, Math.min(120, parseInt(val, 10) || 5)); setCustomSec(num); window.__cineflow_custom_sec = num; if (isCustom) { setSelDuration(num); window.__cineflow_duration = num; } }
+      , onChangeCustomScn = val => { const num = Math.max(3, Math.min(15, parseInt(val, 10) || 3)); setCustomScn(num); window.__cineflow_custom_scn = num; if (isCustom) { setSelScenes(num); window.__cineflow_scenes = num; } }
+      , onSelectDuration = d => onSelectPreset(d, d === 30 ? 9 : d === 20 ? 7 : 5)
       , onSelectLang = l => { setSelLang(l); window.__cineflow_language = l; }
       , T = k => {
         var ol;
@@ -13204,17 +13212,17 @@ const K1 = [["path", {
                                         }),
                                         f.jsx("span", {
                                             className: "text-[11px] font-mono text-zinc-500",
-                                            children: selDuration === 10 ? "5 Scenes • Default" : selDuration === 25 ? "8 Scenes • Richer" : "9 Scenes • Film"
+                                            children: !isCustom ? (selDuration === 10 ? "5 Scenes • Default" : selDuration === 20 ? "7 Scenes • Richer" : "9 Scenes • Film") : (selScenes + " Scenes • Custom")
                                         })
                                     ]
                                 }),
                                 f.jsxs("div", {
-                                    className: "cineflow-segment-bar",
+                                    className: "cineflow-duration-bar",
                                     children: [
                                         f.jsxs("button", {
                                             type: "button",
-                                            onClick: () => onSelectDuration(10),
-                                            className: "cineflow-segment-btn " + (selDuration === 10 ? "active" : "inactive"),
+                                            onClick: () => onSelectPreset(10, 5),
+                                            className: "cineflow-segment-btn " + (!isCustom && selDuration === 10 ? "active" : "inactive"),
                                             children: [
                                                 f.jsxs("div", {
                                                     className: "flex items-center gap-1.5",
@@ -13237,17 +13245,17 @@ const K1 = [["path", {
                                         }),
                                         f.jsxs("button", {
                                             type: "button",
-                                            onClick: () => onSelectDuration(25),
-                                            className: "cineflow-segment-btn " + (selDuration === 25 ? "active" : "inactive"),
+                                            onClick: () => onSelectPreset(20, 7),
+                                            className: "cineflow-segment-btn " + (!isCustom && selDuration === 20 ? "active" : "inactive"),
                                             children: [
                                                 f.jsxs("div", {
                                                     className: "flex items-center gap-1.5",
                                                     children: [
                                                         f.jsx("span", {
                                                             className: "text-xs font-bold font-sans",
-                                                            children: "25 SEC"
+                                                            children: "20 SEC"
                                                         }),
-                                                        selDuration === 25 && f.jsx("span", {
+                                                        !isCustom && selDuration === 20 && f.jsx("span", {
                                                             className: "cineflow-badge-pill",
                                                             children: "ACTIVE"
                                                         })
@@ -13255,14 +13263,14 @@ const K1 = [["path", {
                                                 }),
                                                 f.jsx("span", {
                                                     className: "text-[11px] opacity-80 mt-0.5 font-medium",
-                                                    children: "8 Scenes"
+                                                    children: "7 Scenes"
                                                 })
                                             ]
                                         }),
                                         f.jsxs("button", {
                                             type: "button",
-                                            onClick: () => onSelectDuration(30),
-                                            className: "cineflow-segment-btn " + (selDuration === 30 ? "active" : "inactive"),
+                                            onClick: () => onSelectPreset(30, 9),
+                                            className: "cineflow-segment-btn " + (!isCustom && selDuration === 30 ? "active" : "inactive"),
                                             children: [
                                                 f.jsxs("div", {
                                                     className: "flex items-center gap-1.5",
@@ -13271,7 +13279,7 @@ const K1 = [["path", {
                                                             className: "text-xs font-bold font-sans",
                                                             children: "30 SEC"
                                                         }),
-                                                        selDuration === 30 && f.jsx("span", {
+                                                        !isCustom && selDuration === 30 && f.jsx("span", {
                                                             className: "cineflow-badge-pill",
                                                             children: "ACTIVE"
                                                         })
@@ -13282,6 +13290,73 @@ const K1 = [["path", {
                                                     children: "9 Scenes"
                                                 })
                                             ]
+                                        }),
+                                        f.jsxs("button", {
+                                            type: "button",
+                                            onClick: onSelectCustom,
+                                            className: "cineflow-segment-btn " + (isCustom ? "active" : "inactive"),
+                                            children: [
+                                                f.jsxs("div", {
+                                                    className: "flex items-center gap-1.5",
+                                                    children: [
+                                                        f.jsx("span", {
+                                                            className: "text-xs font-bold font-sans",
+                                                            children: "CUSTOM"
+                                                        }),
+                                                        isCustom && f.jsx("span", {
+                                                            className: "cineflow-badge-pill",
+                                                            children: "ACTIVE"
+                                                        })
+                                                    ]
+                                                }),
+                                                f.jsx("span", {
+                                                    className: "text-[11px] opacity-80 mt-0.5 font-medium",
+                                                    children: isCustom ? (selDuration + "s • " + selScenes + " Scn") : "Time & Scenes"
+                                                })
+                                            ]
+                                        })
+                                    ]
+                                }),
+                                isCustom && f.jsxs("div", {
+                                    className: "cineflow-custom-panel",
+                                    children: [
+                                        f.jsxs("div", {
+                                            className: "cineflow-custom-input-wrap",
+                                            children: [
+                                                f.jsx("span", {
+                                                    className: "cineflow-custom-label",
+                                                    children: "Duration (sec):"
+                                                }),
+                                                f.jsx("input", {
+                                                    type: "number",
+                                                    min: "5",
+                                                    max: "120",
+                                                    value: customSec,
+                                                    onChange: e => onChangeCustomSec(e.target.value),
+                                                    className: "cineflow-custom-input"
+                                                })
+                                            ]
+                                        }),
+                                        f.jsxs("div", {
+                                            className: "cineflow-custom-input-wrap",
+                                            children: [
+                                                f.jsx("span", {
+                                                    className: "cineflow-custom-label",
+                                                    children: "Scenes Count:"
+                                                }),
+                                                f.jsx("input", {
+                                                    type: "number",
+                                                    min: "3",
+                                                    max: "15",
+                                                    value: customScn,
+                                                    onChange: e => onChangeCustomScn(e.target.value),
+                                                    className: "cineflow-custom-input"
+                                                })
+                                            ]
+                                        }),
+                                        f.jsx("span", {
+                                            className: "text-[11px] text-emerald-400 font-mono font-medium",
+                                            children: "⏱️ " + selDuration + "s Commercial • " + selScenes + " Scenes"
                                         })
                                     ]
                                 })
@@ -13441,7 +13516,7 @@ const K1 = [["path", {
                             children: _ || "Uploaded Product Image"
                         }), f.jsx("p", {
                             className: "text-xs sm:text-sm text-zinc-400 leading-relaxed font-normal",
-                            children: "CineFlow AI will lock packaging geometry, branding, and materials as immutable ground truth and generate the complete 10-second commercial prompt."
+                            children: "CineFlow AI will lock packaging geometry, branding, and materials as immutable ground truth and generate the complete " + selDuration + "-second commercial prompt."
                         }), f.jsx("div", {
                             className: "pt-2",
                             children: f.jsx("button", {
@@ -13605,7 +13680,7 @@ const $1 = ({analysis: E, onStartOver: _}) => {
                         children: [f.jsx(bf, {
                             className: "w-4 h-4 text-blue-400 shrink-0"
                         }), f.jsx("span", {
-                            children: "Copy once and paste directly into Google Flow / Google Veo. Duration: Exactly 10.0s."
+                            children: "Copy once and paste directly into Google Flow / Google Veo. Duration: Exactly " + curDur + ".0s."
                         })]
                     }), f.jsx("button", {
                         onClick: R,
@@ -13851,7 +13926,7 @@ const $1 = ({analysis: E, onStartOver: _}) => {
                         children: [f.jsx(bf, {
                             className: "w-4 h-4 text-blue-400 shrink-0"
                         }), f.jsxs("span", {
-                            children: ["Panels identified: ", ll.panelsIdentified, " | Exact 10.0-Second Timing for Google Flow & Veo."]
+                            children: ["Panels identified: ", ll.panelsIdentified, " | Exact " + (window.__cineflow_duration || 10) + ".0-Second Timing for Google Flow & Veo."]
                         })]
                     }), f.jsx("button", {
                         onClick: jl,
@@ -14035,7 +14110,8 @@ function P1() {
                     body: JSON.stringify({
                         imageBase64: J,
                         mimeType: M,
-                        duration: (window.__cineflow_duration || 10),
+                        duration: Number(window.__cineflow_duration || 10),
+                        scenes: Number(window.__cineflow_scenes || (window.__cineflow_duration === 30 ? 9 : window.__cineflow_duration === 20 ? 7 : 5)),
                         language: (window.__cineflow_language || "bangla")
                     })
                 })
@@ -14095,7 +14171,8 @@ function P1() {
                         productBase64: J,
                         productMimeType: M,
                         productName: ((A = V == null ? void 0 : V.productIdentity) == null ? void 0 : A.productName) || "Hero Product",
-                        duration: (window.__cineflow_duration || 10),
+                        duration: Number(window.__cineflow_duration || 10),
+                        scenes: Number(window.__cineflow_scenes || (window.__cineflow_duration === 30 ? 9 : window.__cineflow_duration === 20 ? 7 : 5)),
                         language: (window.__cineflow_language || "bangla")
                     })
                 })

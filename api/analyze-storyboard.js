@@ -48,8 +48,7 @@ module.exports = async function handler(req, res) {
   const rawStoryboard = cleanBase64(storyboardBase64);
   const rawProduct = productBase64 ? cleanBase64(productBase64) : null;
 
-  const validDurations = [10, 25, 30];
-  const chosenDuration = validDurations.includes(Number(duration)) ? Number(duration) : 10;
+  const chosenDuration = Math.max(5, Math.min(120, Number(duration) || 10));
   const chosenLanguage = ['bangla', 'english', 'hindi'].includes(String(language).toLowerCase())
     ? String(language).toLowerCase()
     : 'bangla';
