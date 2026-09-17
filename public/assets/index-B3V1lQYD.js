@@ -12903,21 +12903,21 @@ const K1 = [["path", {
             onClick: U,
             className: "flex items-center gap-3 group cursor-pointer focus:outline-none btn-press text-left",
             children: [f.jsx("div", {
-                className: "w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center group-hover:border-blue-500/60 transition-colors",
-                children: f.jsx("span", {
-                    className: "font-mono text-xs font-black text-blue-400 tracking-tighter",
-                    children: "CF"
+                className: "cineflow-nav-logo-box",
+                children: f.jsx("img", {
+                    src: "./assets/logo.svg",
+                    alt: "CineFlow AI Logo"
                 })
             }), f.jsxs("div", {
                 className: "flex items-center gap-2.5",
                 children: [f.jsxs("span", {
-                    className: "font-sans text-base sm:text-lg font-bold tracking-tight text-zinc-100",
-                    children: ["CineFlow ", f.jsx("span", {
-                        className: "text-blue-400",
+                    className: "cineflow-brand-title text-base sm:text-lg",
+                    children: ["CineFlow", f.jsx("span", {
+                        className: "cineflow-brand-badge",
                         children: "AI"
                     })]
                 }), f.jsx("span", {
-                    className: "text-xs text-zinc-400 font-medium hidden sm:inline-block pl-2.5 border-l border-zinc-800",
+                    className: "text-xs text-emerald-400/70 font-medium hidden sm:inline-block pl-2.5 border-l border-zinc-800 tracking-wide",
                     children: "AI Commercial Director"
                 })]
             })]

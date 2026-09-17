@@ -1103,3 +1103,63 @@ div:has(> #storyboard-file-input) {
   display: block !important;
   box-sizing: border-box !important;
 }
+
+
+/* ==========================================================================
+   PROFESSIONAL CINEFLOW LOGO & NAVBAR STYLING
+   ========================================================================== */
+.cineflow-nav-logo-box {
+  width: 2.6rem !important;
+  height: 2.6rem !important;
+  border-radius: 12px !important;
+  background: radial-gradient(circle at 30% 30%, rgba(6, 30, 14, 0.95), rgba(2, 8, 4, 0.98)) !important;
+  border: 1px solid rgba(74, 222, 128, 0.35) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(74, 222, 128, 0.2) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+#btn-header-logo:hover .cineflow-nav-logo-box {
+  border-color: rgba(0, 255, 102, 0.7) !important;
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.35), inset 0 1px 0 rgba(0, 255, 102, 0.4) !important;
+  transform: scale(1.04) rotate(-2deg);
+}
+
+.cineflow-nav-logo-box img {
+  width: 1.85rem !important;
+  height: 1.85rem !important;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 102, 0.5));
+  transition: transform 0.3s ease;
+}
+
+#btn-header-logo:hover .cineflow-nav-logo-box img {
+  transform: scale(1.08);
+}
+
+.cineflow-brand-title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  color: #f0fdf4 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+}
+
+.cineflow-brand-badge {
+  font-size: 0.65rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  padding: 0.15rem 0.45rem !important;
+  border-radius: 6px !important;
+  color: #00ff66 !important;
+  background: rgba(0, 255, 102, 0.12) !important;
+  border: 1px solid rgba(0, 255, 102, 0.35) !important;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.25) !important;
+  line-height: 1.1 !important;
+}

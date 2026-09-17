@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="cfDarkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051409" />
+      <stop offset="50%" stop-color="#020804" />
+      <stop offset="100%" stop-color="#081e0e" />
+    </linearGradient>
+
+    <!-- Emerald Cyber Neon Gradient -->
+    <linearGradient id="cfEmeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00FF66" />
+      <stop offset="50%" stop-color="#4ADE80" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+
+    <!-- Accent Cyan Gradient for Lens Ring -->
+    <linearGradient id="cfLensGrad" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#00FF66" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="cfNeonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="cfStarGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer Glassmorphic Rounded Hex/Squircle Base -->
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#cfDarkBg)" stroke="rgba(74, 222, 128, 0.35)" stroke-width="1.5" />
+  
+  <!-- Outer Camera Lens / Aperture Ring -->
+  <circle cx="24" cy="24" r="14" stroke="url(#cfLensGrad)" stroke-width="1.8" stroke-dasharray="3 2" opacity="0.7" />
+  <circle cx="24" cy="24" r="11" stroke="rgba(74, 222, 128, 0.25)" stroke-width="1" />
+
+  <!-- Stylized Cinema Flow 'C' & 'F' Ribbon Curves -->
+  <path d="M17 14C13.5 17 13.5 31 17 34" stroke="url(#cfEmeraldGrad)" stroke-width="2.5" stroke-linecap="round" filter="url(#cfNeonGlow)" />
+  <path d="M19 19C24 16 30 19 33 22" stroke="url(#cfEmeraldGrad)" stroke-width="2.2" stroke-linecap="round" filter="url(#cfNeonGlow)" />
+  <path d="M19 25C23 23 27 24 29 27" stroke="url(#cfEmeraldGrad)" stroke-width="2.2" stroke-linecap="round" opacity="0.9" filter="url(#cfNeonGlow)" />
+
+  <!-- Director Cinematic Play Triangle (Core Engine) -->
+  <polygon points="21,18 31,24 21,30" fill="url(#cfEmeraldGrad)" filter="url(#cfNeonGlow)" />
+  <polygon points="21,18 31,24 21,30" fill="#FFFFFF" fill-opacity="0.35" />
+
+  <!-- AI Flare Star (Top Right of Lens) -->
+  <g transform="translate(33, 9)" filter="url(#cfStarGlow)">
+    <path d="M0 -4.5 L1 -1.2 L4.5 0 L1 1.2 L0 4.5 L-1 1.2 L-4.5 0 L-1 -1.2 Z" fill="#FFFFFF" />
+    <circle cx="0" cy="0" r="1" fill="#00FF66" />
+  </g>
+
+  <!-- Central Camera Sensor Pulse Dot -->
+  <circle cx="24" cy="24" r="2" fill="#FFFFFF" />
+</svg>
