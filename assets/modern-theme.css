@@ -548,3 +548,60 @@ button.bg-zinc-900:hover {
 [class*="hover:border-blue-"]:hover {
   border-color: #00ff66 !important;
 }
+
+
+/* --------------------------------------------------------------------------
+   Master Prompt Viewer (Luxury Studio Terminal Typography & Layout)
+   -------------------------------------------------------------------------- */
+#section-master-commercial-prompt {
+  background: rgba(6, 14, 9, 0.96) !important;
+  border: 1.5px solid rgba(74, 222, 128, 0.35) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 45px rgba(34, 197, 94, 0.2) !important;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Outer Prompt Card */
+#section-master-commercial-prompt .rounded-2xl {
+  background: rgba(4, 9, 6, 0.98) !important;
+  border: 1px solid rgba(74, 222, 128, 0.25) !important;
+  border-radius: 18px !important;
+  box-shadow: inset 0 1px 0 rgba(74, 222, 128, 0.15), 0 10px 30px -5px rgba(0, 0, 0, 0.8) !important;
+  overflow: hidden !important;
+}
+
+/* Prompt Text Inner Scroll Container */
+#section-master-commercial-prompt .font-mono,
+#section-master-commercial-prompt .whitespace-pre-wrap {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 13.5px !important;
+  line-height: 1.9 !important;
+  letter-spacing: -0.01em !important;
+  font-weight: 450 !important;
+  color: #ecfdf5 !important;
+  background: rgba(2, 6, 4, 0.99) !important;
+  padding: 26px 30px !important;
+  -webkit-font-smoothing: antialiased !important;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Bottom status & quick copy bar */
+#section-master-commercial-prompt .bg-\[\#181926\],
+#section-master-commercial-prompt .border-t {
+  background: rgba(6, 14, 9, 0.98) !important;
+  border-top: 1px solid rgba(74, 222, 128, 0.2) !important;
+  padding: 14px 24px !important;
+  color: #86efac !important;
+}
+
+#section-master-commercial-prompt .bg-\[\#181926\] button {
+  color: #4ade80 !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+#section-master-commercial-prompt .bg-\[\#181926\] button:hover {
+  color: #00ff66 !important;
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.7);
+}
