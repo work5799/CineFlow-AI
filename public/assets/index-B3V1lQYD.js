@@ -13151,7 +13151,7 @@ const K1 = [["path", {
     }
     ;
     return f.jsxs("section", {
-        className: "relative pt-8 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 cineflow-hero-section",
+        className: "relative pt-4 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto cineflow-hero-section",
         children: [f.jsxs("div", {
             className: "text-center space-y-4 relative z-10",
             children: [f.jsxs("div", {
@@ -13476,7 +13476,7 @@ const K1 = [["path", {
                     return (k = J.current) == null ? void 0 : k.click()
                 }
                 ,
-                className: `group relative rounded-2xl border-2 border-dashed transition-all duration-150 p-8 sm:p-14 text-center cursor-pointer overflow-hidden bg-[#12131C] ${ll ? "border-blue-500 bg-blue-950/20" : "border-zinc-800 hover:border-zinc-700 hover:bg-[#161824]"}`,
+                className: `w-full group relative rounded-2xl border-2 border-dashed transition-all duration-150 p-8 sm:p-14 text-center cursor-pointer overflow-hidden bg-[#12131C] ${ll ? "border-blue-500 bg-blue-950/20" : "border-zinc-800 hover:border-zinc-700 hover:bg-[#161824]"}`,//wide
                 children: f.jsxs("div", {
                     className: "relative z-10 flex flex-col items-center justify-center space-y-5",
                     children: [f.jsx("div", {

@@ -997,102 +997,77 @@ button.btn-cta-primary::before {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(74, 222, 128, 0.12) !important;
 }
 
-/* Breathable Hero Spacing */
+/* ==========================================================================
+   PERFECT COMPACT SPACING & FULL-WIDTH IMAGE DROPZONE
+   ========================================================================== */
+
+/* Balanced & Compact Hero Section */
 header + section,
 main > section:first-of-type,
-.cineflow-hero-section {
-  padding-top: 3.75rem !important;
-  padding-bottom: 2.5rem !important;
+.cineflow-hero-section,
+section.cineflow-hero-section,
+section.max-w-7xl {
+  padding-top: 1.75rem !important;
+  padding-bottom: 2rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 1.25rem !important;
+  width: 100% !important;
+  max-width: 80rem !important;
 }
 
 @media (min-width: 640px) {
   header + section,
   main > section:first-of-type,
-  .cineflow-hero-section {
-    padding-top: 5rem !important;
-  }
-}
-
-
-/* ==========================================================================
-   CRITICAL BREATHABLE SPACING FIX
-   ========================================================================== */
-
-/* Hero Section Padding */
-.cineflow-hero-section {
-  padding-top: 4.5rem !important;
-  padding-bottom: 3rem !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 2.5rem !important;
-}
-
-@media (min-width: 640px) {
-  .cineflow-hero-section {
-    padding-top: 5.5rem !important;
-    gap: 3rem !important;
-  }
-}
-
-/* Explicit vertical margins on Duration & Language Control Card */
-.cineflow-control-card {
-  margin-top: 2rem !important;
-  margin-bottom: 2.5rem !important;
-  width: 100% !important;
-}
-
-@media (min-width: 640px) {
-  .cineflow-control-card {
-    margin-top: 2.25rem !important;
-    margin-bottom: 3rem !important;
-  }
-}
-
-/* Space above the upload section */
-.cineflow-control-card + div,
-div:has(> #product-file-input) {
-  margin-top: 1.5rem !important;
-}
-
-
-/* ==========================================================================
-   EXPLICIT SEPARATION: CONTROL CARD & DROPZONE
-   ========================================================================== */
-
-/* Spacing between Navbar and Hero Section */
-.cineflow-hero-section,
-section.cineflow-hero-section,
-section.max-w-7xl {
-  padding-top: 3.5rem !important;
-}
-
-@media (min-width: 640px) {
   .cineflow-hero-section,
   section.cineflow-hero-section,
   section.max-w-7xl {
-    padding-top: 4.5rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2.25rem !important;
+    gap: 1.25rem !important;
   }
 }
 
-/* Clear gap between Hero text and Control card */
+/* Reset Tailwind space-y extra margins inside hero section to keep gap exact */
+.cineflow-hero-section > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Hero Header Text */
+.cineflow-hero-section > div:first-child {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+}
+
+/* Commercial Duration & Language Segmented Controls Card */
 .cineflow-control-card {
-  margin-top: 2rem !important;
-  margin-bottom: 2.5rem !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
   clear: both !important;
 }
 
-@media (min-width: 640px) {
-  .cineflow-control-card {
-    margin-top: 2.5rem !important;
-    margin-bottom: 3rem !important;
-  }
+/* Upload Dropzone Container & Wide Dropzone (Matching Width of Control Card) */
+.cineflow-control-card + div,
+div:has(> #product-file-input),
+div:has(> #storyboard-file-input) {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
-/* Explicit separation for Dropzone */
-#dropzone-product {
-  margin-top: 0.5rem !important;
-}
-
-.cineflow-control-card + div {
-  margin-top: 2.5rem !important;
+#dropzone-product,
+#dropzone-storyboard,
+.upload-dropzone {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+  box-sizing: border-box !important;
 }
