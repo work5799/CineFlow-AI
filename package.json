@@ -1,8 +1,8 @@
 {
   "name": "cineflow-ai",
   "version": "1.0.0",
+  "private": true,
   "description": "CineFlow AI — Turn One Product Image Into A Cinematic 10-Second Commercial for Google Flow & Veo",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
