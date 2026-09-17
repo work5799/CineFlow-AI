@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CineFlow AI — Turn One Product Image Into A Cinematic Ad</title>
+    <meta name="description" content="AI Creative Director generating Master Prompts for ChatGPT composite image concepts and Google Flow cinematic video commercials." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      (function() {
+        try {
+          var originalFetch = window.fetch ? window.fetch.bind(window) : null;
+          var currentFetch = originalFetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() { return currentFetch; },
+            set: function(fn) { currentFetch = fn; },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          // Ignore if environment prevents defining property
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="./assets/index-BJh9vulR.css">
+    <link rel="stylesheet" href="./assets/modern-theme.css">
+  </head>
+  <body class="bg-[#030604] text-[#F0FDF4] antialiased selection:bg-[#00FF66] selection:text-[#030604] min-h-screen">
+
+    <!-- Cyber Geometric & Laser Background Shapes (Matching Screenshot) -->
+    <!-- Refined, Elegant Peripheral Background Shapes -->
+    <div class="cyber-bg-shapes" aria-hidden="true">
+      <!-- 1. Top Gentle Ambient Neon Wave -->
+      <svg class="cyber-wave-decor" viewBox="0 0 1440 320" fill="none" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="refinedWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00ff66" stop-opacity="0" />
+            <stop offset="35%" stop-color="#00ff66" stop-opacity="0.45" />
+            <stop offset="50%" stop-color="#4ade80" stop-opacity="0.6" />
+            <stop offset="65%" stop-color="#22c55e" stop-opacity="0.45" />
+            <stop offset="100%" stop-color="#00ff66" stop-opacity="0" />
+          </linearGradient>
+          <filter id="refinedWaveGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <path d="M-50,110 C350,230 650,20 1050,170 C1250,240 1420,130 1550,150" stroke="url(#refinedWaveGrad)" stroke-width="2.5" filter="url(#refinedWaveGlow)" />
+        <path d="M-50,140 C320,260 620,50 1020,200 C1220,270 1390,160 1550,180" stroke="url(#refinedWaveGrad)" stroke-width="1.2" stroke-dasharray="6 6" opacity="0.4" />
+      </svg>
+
+      <!-- 2. Bottom-Left Refined Honeycomb Accent -->
+      <svg class="cyber-hex-decor" viewBox="0 0 240 420" fill="none">
+        <defs>
+          <filter id="hexGlowRefined" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+      <polygon points="67.7,34.0 67.7,66.0 40.0,82.0 12.3,66.0 12.3,34.0 40.0,18.0" fill="rgba(0, 255, 102, 0.08)" stroke="#00ff66" stroke-width="2" filter="url(#hexGlowRefined)" class="hex-pulse-subtle" />
+      <polygon points="122.7,66.0 122.7,98.0 95.0,114.0 67.3,98.0 67.3,66.0 95.0,50.0" fill="rgba(6, 14, 8, 0.4)" stroke="rgba(34, 197, 94, 0.3)" stroke-width="1"   />
+      <polygon points="67.7,98.0 67.7,130.0 40.0,146.0 12.3,130.0 12.3,98.0 40.0,82.0" fill="rgba(6, 14, 8, 0.4)" stroke="rgba(34, 197, 94, 0.3)" stroke-width="1"   />
+      <polygon points="122.7,130.0 122.7,162.0 95.0,178.0 67.3,162.0 67.3,130.0 95.0,114.0" fill="rgba(0, 255, 102, 0.08)" stroke="#00ff66" stroke-width="2" filter="url(#hexGlowRefined)" class="hex-pulse-subtle" />
+      <polygon points="177.7,98.0 177.7,130.0 150.0,146.0 122.3,130.0 122.3,98.0 150.0,82.0" fill="rgba(6, 14, 8, 0.4)" stroke="rgba(34, 197, 94, 0.3)" stroke-width="1"   />
+      <polygon points="67.7,162.0 67.7,194.0 40.0,210.0 12.3,194.0 12.3,162.0 40.0,146.0" fill="rgba(6, 14, 8, 0.4)" stroke="rgba(34, 197, 94, 0.3)" stroke-width="1"   />
+      <polygon points="122.7,194.0 122.7,226.0 95.0,242.0 67.3,226.0 67.3,194.0 95.0,178.0" fill="rgba(6, 14, 8, 0.4)" stroke="rgba(34, 197, 94, 0.3)" stroke-width="1"   />
+      <polygon points="177.7,162.0 177.7,194.0 150.0,210.0 122.3,194.0 122.3,162.0 150.0,146.0" fill="rgba(0, 255, 102, 0.08)" stroke="#00ff66" stroke-width="2" filter="url(#hexGlowRefined)" class="hex-pulse-subtle" />
+      <polygon points="67.7,226.0 67.7,258.0 40.0,274.0 12.3,258.0 12.3,226.0 40.0,210.0" fill="rgba(6, 14, 8, 0.4)" stroke="rgba(34, 197, 94, 0.3)" stroke-width="1"   />
+      <polygon points="122.7,258.0 122.7,290.0 95.0,306.0 67.3,290.0 67.3,258.0 95.0,242.0" fill="rgba(6, 14, 8, 0.4)" stroke="rgba(34, 197, 94, 0.3)" stroke-width="1"   />
+      <polygon points="177.7,226.0 177.7,258.0 150.0,274.0 122.3,258.0 122.3,226.0 150.0,210.0" fill="rgba(6, 14, 8, 0.4)" stroke="rgba(34, 197, 94, 0.3)" stroke-width="1"   />
+      <polygon points="122.7,322.0 122.7,354.0 95.0,370.0 67.3,354.0 67.3,322.0 95.0,306.0" fill="rgba(0, 255, 102, 0.08)" stroke="#00ff66" stroke-width="2" filter="url(#hexGlowRefined)" class="hex-pulse-subtle" />
+      </svg>
+
+      <!-- 3. Top-Right Clean Laser Rays & Corner Accent -->
+      <svg class="cyber-laser-decor" viewBox="0 0 400 480" fill="none">
+        <defs>
+          <linearGradient id="cleanBeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00ff66" stop-opacity="0" />
+            <stop offset="45%" stop-color="#00ff66" stop-opacity="0.65" />
+            <stop offset="70%" stop-color="#4ade80" stop-opacity="0.75" />
+            <stop offset="100%" stop-color="#22c55e" stop-opacity="0" />
+          </linearGradient>
+          <filter id="cleanLaserGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="cleanFlareBlur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" />
+          </filter>
+        </defs>
+
+        <!-- Angular sleek glass accent plate (Corner only) -->
+        <polygon points="160,40 360,240 290,310 90,110" fill="rgba(8, 20, 11, 0.3)" stroke="rgba(74, 222, 128, 0.3)" stroke-width="1.2" />
+
+        <!-- Crisp high speed lasers -->
+        <line x1="40" y1="0" x2="400" y2="360" stroke="url(#cleanBeamGrad)" stroke-width="2.2" filter="url(#cleanLaserGlow)" />
+        <line x1="100" y1="0" x2="440" y2="340" stroke="url(#cleanBeamGrad)" stroke-width="1.2" filter="url(#cleanLaserGlow)" />
+
+        <!-- Starburst Lens Flare -->
+        <g transform="translate(240, 200)" class="flare-pulse">
+          <circle r="4" fill="#ffffff" filter="url(#cleanFlareBlur)" />
+          <line x1="-22" y1="0" x2="22" y2="0" stroke="#00ff66" stroke-width="1.5" />
+          <line x1="0" y1="-22" x2="0" y2="22" stroke="#00ff66" stroke-width="1.5" />
+          <circle r="12" fill="none" stroke="rgba(0, 255, 102, 0.45)" stroke-width="0.8" />
+        </g>
+
+        <!-- Halftone dot matrix corner patch -->
+        <g opacity="0.45">
+        <circle cx="260" cy="220" r="1.8" fill="#00ff66" opacity="0.08" />
+        <circle cx="260" cy="236" r="1.8" fill="#00ff66" opacity="0.12" />
+        <circle cx="260" cy="252" r="1.8" fill="#00ff66" opacity="0.16" />
+        <circle cx="260" cy="268" r="1.8" fill="#00ff66" opacity="0.20" />
+        <circle cx="260" cy="284" r="1.8" fill="#00ff66" opacity="0.24" />
+        <circle cx="260" cy="300" r="1.8" fill="#00ff66" opacity="0.28" />
+        <circle cx="276" cy="220" r="1.8" fill="#00ff66" opacity="0.12" />
+        <circle cx="276" cy="236" r="1.8" fill="#00ff66" opacity="0.16" />
+        <circle cx="276" cy="252" r="1.8" fill="#00ff66" opacity="0.20" />
+        <circle cx="276" cy="268" r="1.8" fill="#00ff66" opacity="0.24" />
+        <circle cx="276" cy="284" r="1.8" fill="#00ff66" opacity="0.28" />
+        <circle cx="276" cy="300" r="1.8" fill="#00ff66" opacity="0.32" />
+        <circle cx="292" cy="220" r="1.8" fill="#00ff66" opacity="0.16" />
+        <circle cx="292" cy="236" r="1.8" fill="#00ff66" opacity="0.20" />
+        <circle cx="292" cy="252" r="1.8" fill="#00ff66" opacity="0.24" />
+        <circle cx="292" cy="268" r="1.8" fill="#00ff66" opacity="0.28" />
+        <circle cx="292" cy="284" r="1.8" fill="#00ff66" opacity="0.32" />
+        <circle cx="292" cy="300" r="1.8" fill="#00ff66" opacity="0.36" />
+        <circle cx="308" cy="220" r="1.8" fill="#00ff66" opacity="0.20" />
+        <circle cx="308" cy="236" r="1.8" fill="#00ff66" opacity="0.24" />
+        <circle cx="308" cy="252" r="1.8" fill="#00ff66" opacity="0.28" />
+        <circle cx="308" cy="268" r="1.8" fill="#00ff66" opacity="0.32" />
+        <circle cx="308" cy="284" r="1.8" fill="#00ff66" opacity="0.36" />
+        <circle cx="308" cy="300" r="1.8" fill="#00ff66" opacity="0.40" />
+        <circle cx="324" cy="220" r="1.8" fill="#00ff66" opacity="0.24" />
+        <circle cx="324" cy="236" r="1.8" fill="#00ff66" opacity="0.28" />
+        <circle cx="324" cy="252" r="1.8" fill="#00ff66" opacity="0.32" />
+        <circle cx="324" cy="268" r="1.8" fill="#00ff66" opacity="0.36" />
+        <circle cx="324" cy="284" r="1.8" fill="#00ff66" opacity="0.40" />
+        <circle cx="324" cy="300" r="1.8" fill="#00ff66" opacity="0.44" />
+        <circle cx="340" cy="220" r="1.8" fill="#00ff66" opacity="0.28" />
+        <circle cx="340" cy="236" r="1.8" fill="#00ff66" opacity="0.32" />
+        <circle cx="340" cy="252" r="1.8" fill="#00ff66" opacity="0.36" />
+        <circle cx="340" cy="268" r="1.8" fill="#00ff66" opacity="0.40" />
+        <circle cx="340" cy="284" r="1.8" fill="#00ff66" opacity="0.44" />
+        <circle cx="340" cy="300" r="1.8" fill="#00ff66" opacity="0.48" />
+
+        </g>
+      </svg>
+    </div>
+    <div id="root"></div>
+    <script src="./assets/index-B3V1lQYD.js"></script>
+  </body>
+</html>
+

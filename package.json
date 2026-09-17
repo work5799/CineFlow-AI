@@ -1,0 +1,24 @@
+{
+  "name": "cineflow-ai",
+  "version": "1.0.0",
+  "description": "CineFlow AI — Turn One Product Image Into A Cinematic 10-Second Commercial for Google Flow & Veo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ai",
+    "commercial",
+    "video",
+    "gemini",
+    "chatgpt",
+    "veo",
+    "google-flow"
+  ],
+  "author": "MD Hasan",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
