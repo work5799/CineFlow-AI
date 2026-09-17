@@ -13532,6 +13532,8 @@ function Cd(E) {
 const $1 = ({analysis: E, onStartOver: _}) => {
     const [U,m] = nl.useState(!1)
       , q = E.masterCommercialPrompt || ""
+      , curDur = (E && E.duration) ? E.duration : (window.__cineflow_duration || 10)
+      , curLang = (E && E.language) ? (E.language.toLowerCase() === "english" ? "English" : E.language.toLowerCase() === "hindi" ? "Hindi" : "Bengali") : (window.__cineflow_language === "english" ? "English" : window.__cineflow_language === "hindi" ? "Hindi" : "Bengali")
       , R = async () => {
         await Yd(q) && (m(!0),
         setTimeout( () => m(!1), 2500))
@@ -13552,14 +13554,14 @@ const $1 = ({analysis: E, onStartOver: _}) => {
                             className: "w-2 h-2 rounded-full bg-blue-400"
                         }), f.jsx("span", {
                             className: "text-xs font-bold uppercase tracking-wider text-blue-400",
-                            children: "10-Second Commercial Directive"
+                            children: curDur + "-Second Commercial Directive"
                         })]
                     }), f.jsx("h2", {
                         className: "text-2xl sm:text-3xl font-bold text-zinc-100 tracking-tight",
                         children: "MASTER COMMERCIAL PROMPT"
                     }), f.jsx("p", {
                         className: "text-xs sm:text-sm text-zinc-400 max-w-2xl font-normal",
-                        children: "One unified 10-second commercial prompt for Google Flow / Veo — video, Bengali voiceover, music, sound design, and brand payoff."
+                        children: "One unified " + curDur + "-second commercial prompt for Google Flow / Veo — video, " + curLang + " voiceover, music, sound design, and brand payoff."
                     })]
                 }), f.jsxs("div", {
                     className: "flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto",
@@ -13814,10 +13816,10 @@ const $1 = ({analysis: E, onStartOver: _}) => {
                         })]
                     }), f.jsx("h2", {
                         className: "text-2xl sm:text-3xl font-bold text-zinc-100 tracking-tight",
-                        children: "10-SECOND VIDEO MASTER PROMPT"
+                        children: (window.__cineflow_duration || 10) + "-SECOND VIDEO MASTER PROMPT"
                     }), f.jsx("p", {
                         className: "text-xs sm:text-sm text-zinc-400 max-w-2xl font-normal",
-                        children: "Final production prompt generated from your storyboard for Google Flow / Google Veo, including video direction, Bengali voiceover, music, sound design, and brand payoff."
+                        children: "Final production prompt generated from your storyboard for Google Flow / Google Veo, including video direction, " + (window.__cineflow_language === "english" ? "English" : window.__cineflow_language === "hindi" ? "Hindi" : "Bengali") + " voiceover, music, sound design, and brand payoff."
                     })]
                 }), f.jsx("button", {
                     id: "btn-copy-video-prompt",
