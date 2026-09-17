@@ -806,27 +806,27 @@ button.bg-zinc-900:hover {
    ========================================================================== */
 
 /* Keyframe Animations */
+
 @keyframes cineflowSlideDown {
   0% {
-    opacity: 0;
-    transform: translateY(-24px);
+    transform: translateY(-12px);
   }
   100% {
-    opacity: 1;
     transform: translateY(0);
   }
 }
 
+
+
 @keyframes cineflowFadeUp {
   0% {
-    opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(12px);
   }
   100% {
-    opacity: 1;
     transform: translateY(0);
   }
 }
+
 
 @keyframes heroGlowAura {
   0%, 100% {
@@ -1011,4 +1011,88 @@ main > section:first-of-type,
   .cineflow-hero-section {
     padding-top: 5rem !important;
   }
+}
+
+
+/* ==========================================================================
+   CRITICAL BREATHABLE SPACING FIX
+   ========================================================================== */
+
+/* Hero Section Padding */
+.cineflow-hero-section {
+  padding-top: 4.5rem !important;
+  padding-bottom: 3rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2.5rem !important;
+}
+
+@media (min-width: 640px) {
+  .cineflow-hero-section {
+    padding-top: 5.5rem !important;
+    gap: 3rem !important;
+  }
+}
+
+/* Explicit vertical margins on Duration & Language Control Card */
+.cineflow-control-card {
+  margin-top: 2rem !important;
+  margin-bottom: 2.5rem !important;
+  width: 100% !important;
+}
+
+@media (min-width: 640px) {
+  .cineflow-control-card {
+    margin-top: 2.25rem !important;
+    margin-bottom: 3rem !important;
+  }
+}
+
+/* Space above the upload section */
+.cineflow-control-card + div,
+div:has(> #product-file-input) {
+  margin-top: 1.5rem !important;
+}
+
+
+/* ==========================================================================
+   EXPLICIT SEPARATION: CONTROL CARD & DROPZONE
+   ========================================================================== */
+
+/* Spacing between Navbar and Hero Section */
+.cineflow-hero-section,
+section.cineflow-hero-section,
+section.max-w-7xl {
+  padding-top: 3.5rem !important;
+}
+
+@media (min-width: 640px) {
+  .cineflow-hero-section,
+  section.cineflow-hero-section,
+  section.max-w-7xl {
+    padding-top: 4.5rem !important;
+  }
+}
+
+/* Clear gap between Hero text and Control card */
+.cineflow-control-card {
+  margin-top: 2rem !important;
+  margin-bottom: 2.5rem !important;
+  clear: both !important;
+}
+
+@media (min-width: 640px) {
+  .cineflow-control-card {
+    margin-top: 2.5rem !important;
+    margin-bottom: 3rem !important;
+  }
+}
+
+/* Explicit separation for Dropzone */
+#dropzone-product {
+  margin-top: 0.5rem !important;
+}
+
+.cineflow-control-card + div {
+  margin-top: 2.5rem !important;
 }
