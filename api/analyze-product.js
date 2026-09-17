@@ -95,7 +95,22 @@ STEP 1: PRODUCT DNA EXTRACTION
   2. Product Category and the REAL everyday pain point / dilemma it solves.
   3. Packaging shape (bottle, jar, can, tube, box, device), cap style, colors, typography, and texture/viscosity.
 
-STEP 2: STORY TRANSFORMATION ARC (NOT A STATIC 3D MODEL)
+STEP 2: GOOGLE FLOW / VEO 10-SECOND CLIP SEGMENTATION (MANDATORY)
+Google Flow and Google Veo generate AI video in maximum 10-second clips per generation batch.
+Therefore:
+1. For 10s Commercials: Formulate as 1 continuous 10.0s clip (00.0s - 10.0s).
+2. For 20s Commercials: You MUST organize the timeline and scenes into TWO separate 10.0s generation clips:
+   - CLIP 01 (00.0s - 10.0s): Act 1 - Problem Dilemma & Product Intro (scenes MUST finish at 10.0s with a clean match-cut motion bridge).
+   - CLIP 02 (10.0s - 20.0s): Act 2 - Active Formula Efficacy, Transformation & Grand Hero Packshot (scenes run 10.0s to 20.0s with final brand payoff).
+3. For 30s Commercials: You MUST organize the timeline and scenes into THREE separate 10.0s generation clips:
+   - CLIP 01 (00.0s - 10.0s): Act 1 - The Dilemma & Tactile Product Intro (scenes finish at 10.0s with a seamless camera momentum bridge).
+   - CLIP 02 (10.0s - 20.0s): Act 2 - Formula Efficacy Demonstration & Sparkling Transformation Reveal (scenes run 10.0s to 20.0s).
+   - CLIP 03 (20.0s - 30.0s): Act 3 - Protagonist Satisfaction, Packaging Geometry Focus & Broadcast Hero Packshot (scenes run 20.0s to 30.0s).
+4. For custom durations: Partition into sequential 10-second chunks (e.g. 0-10s, 10-20s, etc.) where each 10s block is complete and modular.
+5. EVERY SCENE MUST have its exact second timestamp in parentheses, e.g. SCENE 01 (00-03s): ..., SCENE 02 (03-07s): ..., SCENE 03 (07-10s): ...
+6. Voiceover script must be partitioned by clip timestamps so users can easily generate or voice per 10-second video clip.
+
+STEP 3: STORY TRANSFORMATION ARC (NOT A STATIC 3D MODEL)
 Craft a complete narrative commercial that shows:
 1. Relatable everyday problem / dilemma (protagonist facing category-specific frustration).
 2. Sensory product introduction (pour, lather, spray, open, apply, or interact with signature packaging texture).
@@ -115,14 +130,28 @@ FORMATTING REQUIREMENTS:
 Generate the prompt following this EXACT uppercase-labeled structure:
 
 MASTER COMMERCIAL CONCEPT: Create a ${numDuration}-second premium commercial for '[Exact Detected Product Name]'. The goal is to show the transformation of [specific everyday problem/dilemma this product solves] into [radiant/clean/energized/delighted solution space] using the product.
-${numDuration}-SECOND TIMELINE: [Divide ${numDuration} seconds into ${numScenes} proportional intervals (e.g. 00-03s: ..., 03-06s: ...). Each interval must describe the story progression for THIS product.]
-SCENE 01: [Medium shot of protagonist facing the specific problem/dilemma.]
-SCENE 02: [Macro or close-up of product interaction: pouring, applying, opening, or spraying with signature packaging details and texture.]
-SCENE 03: [Close-up of formula action, sensory efficacy, bubbles, foam, splash, or technology solving the problem.]
-[Continue sequentially with SCENE 04, SCENE 05... up to SCENE ${String(numScenes).padStart(2, '0')}]:
-SCENE ${String(numScenes - 2).padStart(2, '0')}: [Extreme close-up or tracking reveal of the transformed result.]
-SCENE ${String(numScenes - 1).padStart(2, '0')}: [Medium shot of protagonist smiling, completely satisfied and confident.]
-SCENE ${String(numScenes).padStart(2, '0')}: [Static hero packshot of product with thematic natural/aesthetic elements matching THIS product, packaging detail focus, and final brand logo fade-out.]
+${numDuration}-SECOND TIMELINE: [Divide ${numDuration} seconds into ${numScenes} sequential intervals. For commercials > 10s, clearly demarcate the 10-second clips: CLIP 01 (00.0s-10.0s), CLIP 02 (10.0s-20.0s), CLIP 03 (20.0s-30.0s), so each clip completes within its 10-second boundary.]
+[Provide SCENE 01 to SCENE ${String(numScenes).padStart(2, '0')} with timestamps in parentheses. For commercials > 10s, group them under uppercase CLIP headers so each batch finishes at 10s, 20s, 30s]:
+If 10s Commercial:
+SCENE 01 (00-03s): Medium shot of protagonist facing the specific problem/dilemma.
+SCENE 02 (03-06s): Macro or close-up of product interaction (pouring, applying, opening, or spraying with signature packaging details and texture).
+SCENE 03 (06-08s): Close-up of active formula efficacy (bubbles, foam, splash, or technology solving the problem).
+SCENE 04 (08-10s): Extreme close-up reveal of transformed result and static hero packshot with brand logo fade-out.
+
+If 20s or 30s Commercial (Partitioned into exact 10.0s Google Flow / Veo Clips):
+CLIP 01 (00.0s - 10.0s): Act 1 - Problem Dilemma & Product Introduction
+SCENE 01 (00-03s): Medium shot of protagonist facing dilemma.
+SCENE 02 (03-07s): Macro of product interaction and rich sensory texture.
+SCENE 03 (07-10s): Active formula action, ending at 10.0s with seamless match-cut bridge for Clip 2.
+CLIP 02 (10.0s - 20.0s): Act 2 - Efficacy Demonstration & Sparkling Transformation
+SCENE 04 (10-14s): Extreme close-up of rinse/action revealing pristine transformation.
+SCENE 05 (14-17s): Macro tracking of formula science and visible breakthrough.
+SCENE 06 (17-20s): Protagonist smiling, delighted and satisfied. (If 20s, includes hero packshot & brand logo payoff at 20.0s).
+(If 30s Commercial, include CLIP 03):
+CLIP 03 (20.0s - 30.0s): Act 3 - Lifestyle Celebration & Grand Broadcast Hero Packshot
+SCENE 07 (20-24s): Medium shot, protagonist lifestyle confidence and satisfaction.
+SCENE 08 (24-27s): Product detail focus on packaging geometry, logo, and commercial lighting.
+SCENE 09 (27-30s): Static hero packshot on pedestal with thematic aesthetic elements and final brand logo fade-out.
 CAMERA & CINEMATOGRAPHY: [Professional cinema camera settings, focal length, depth of field, and tracking motion tailored to this product.]
 LIGHTING & COLOR: [Lighting transition from moody problem lighting to vibrant, high-contrast lighting highlighting the product's packaging colors.]
 PRODUCT PRESERVATION: Maintain exact [describe detected packaging geometry], logo placement, colors, and [texture/viscosity/finish]. No morphing.

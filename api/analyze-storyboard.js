@@ -72,13 +72,17 @@ Identify the sequential panels, camera trajectories, lighting, and pacing.
 
 Now, construct the pure, clean UNIFIED ${chosenDuration}-SECOND VIDEO COMMERCIAL PROMPT FOR GOOGLE FLOW / GOOGLE VEO with ${langLabel} voiceover script.
 
+CRITICAL GOOGLE FLOW & VEO RULE:
+Google Flow and Google Veo render in maximum 10-second batches.
+${chosenDuration > 10 ? `Partition the timeline breakdown into sequential 10.0-second generation clips (e.g. CLIP 01: 0.0s - 10.0s, CLIP 02: 10.0s - 20.0s${chosenDuration > 20 ? ', CLIP 03: 20.0s - 30.0s' : ''}), detailing Visual & Motion, Camera, Voiceover (${langLabel}), Sound Design, and specifying a seamless match-cut motion bridge at every 10.0-second boundary.` : `Provide exact second-by-second scene breakdown covering 0.0s to ${chosenDuration}.0s, with Visual & Motion, Camera, Voiceover (${langLabel}), and Sound Design for each scene.`}
+
 STRICT RULE: Do NOT include any campaign title, metadata header, or dividers. Start directly with:
 
 [SCENE DIRECTIVE: ${chosenDuration}.0-SECOND CONTINUOUS TELEVISION COMMERCIAL]
 Cinematic television commercial for "${productName}". Hyper-realistic 8K broadcast quality, shot on Arri Alexa 65 with 35mm anamorphic lens, f/1.8 shallow depth of field, photorealistic reflections, natural motion blur.
 
 [TIMELINE BREAKDOWN]:
-(Provide exact second-by-second scene breakdown covering 0.0s to ${chosenDuration}.0s, with Visual & Motion, Camera, Voiceover (${langLabel}), and Sound Design for each scene)
+(Provide detailed scene breakdown covering 0.0s to ${chosenDuration}.0s with modular 10-second clip demarcations for Google Flow & Veo)
 
 [GLOBAL RENDER PARAMETERS]:
 Color Grade: High-contrast luxury commercial grade, vibrant saturation, deep blacks, anamorphic bokeh, broadcast TV master quality. No morphing, flawless packaging consistency with reference.`;

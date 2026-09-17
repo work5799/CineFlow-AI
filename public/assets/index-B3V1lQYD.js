@@ -13680,7 +13680,7 @@ const $1 = ({analysis: E, onStartOver: _}) => {
                         children: [f.jsx(bf, {
                             className: "w-4 h-4 text-blue-400 shrink-0"
                         }), f.jsx("span", {
-                            children: "Copy once and paste directly into Google Flow / Google Veo. Duration: Exactly " + curDur + ".0s."
+                            children: "Copy once and paste directly into Google Flow / Google Veo. Duration: Exactly " + curDur + ".0s (" + (curDur <= 10 ? "10s Single Clip" : Math.ceil(curDur / 10) + "x 10s Modular Clips") + ")."
                         })]
                     }), f.jsx("button", {
                         onClick: R,
@@ -13926,7 +13926,7 @@ const $1 = ({analysis: E, onStartOver: _}) => {
                         children: [f.jsx(bf, {
                             className: "w-4 h-4 text-blue-400 shrink-0"
                         }), f.jsxs("span", {
-                            children: ["Panels identified: ", ll.panelsIdentified, " | Exact " + (window.__cineflow_duration || 10) + ".0-Second Timing for Google Flow & Veo."]
+                            children: ["Panels identified: ", ll.panelsIdentified, " | 10.0s Modular Clips for Google Flow & Veo (" + (window.__cineflow_duration || 10) + ".0s Total)."]
                         })]
                     }), f.jsx("button", {
                         onClick: jl,
