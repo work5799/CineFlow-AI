@@ -1,6 +1,7 @@
 /**
  * Shared Gemini REST API Helper
  * Dynamic Model Discovery + Auto-Fallback across v1 and v1beta
+ * Specifically filters for vision/multimodal capable models
  */
 
 // Cache discovered model per API key to minimize latency
@@ -58,6 +59,16 @@ async function discoverAvailableModels(apiKey) {
         for (const m of models) {
           if (m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent')) {
             const cleanName = m.name.replace(/^models\//, '');
+            // STRICTLY EXCLUDE non-image models (TTS, audio-only, embeddings, search)
+            if (
+              cleanName.includes('-tts') ||
+              cleanName.includes('tts') ||
+              cleanName.includes('embedding') ||
+              cleanName.includes('aqa') ||
+              cleanName.includes('imagen')
+            ) {
+              continue;
+            }
             discovered.push({ modelName: cleanName, apiVersion });
           }
         }
@@ -68,15 +79,21 @@ async function discoverAvailableModels(apiKey) {
   }
 
   if (discovered.length > 0) {
-    // Sort so preferred fast/multimodal models come first
+    // Rank proven multimodal models highest
     discovered.sort((a, b) => {
       const score = m => {
         let s = 0;
-        if (m.modelName.includes('2.0-flash')) s += 100;
-        else if (m.modelName.includes('1.5-flash')) s += 80;
-        else if (m.modelName.includes('2.5-flash')) s += 70;
-        else if (m.modelName.includes('flash')) s += 50;
-        else if (m.modelName.includes('pro')) s += 40;
+        const name = m.modelName.toLowerCase();
+        if (name === 'gemini-2.0-flash') s += 1000;
+        else if (name === 'gemini-1.5-flash') s += 900;
+        else if (name === 'gemini-1.5-flash-latest') s += 850;
+        else if (name === 'gemini-2.0-flash-exp') s += 800;
+        else if (name === 'gemini-1.5-pro') s += 700;
+        else if (name === 'gemini-1.5-pro-latest') s += 650;
+        else if (name.startsWith('gemini-2.0-flash')) s += 600;
+        else if (name.startsWith('gemini-1.5-flash')) s += 500;
+        else if (name.includes('flash')) s += 300;
+        else if (name.includes('pro')) s += 200;
         if (m.apiVersion === 'v1beta') s += 5;
         return s;
       };
@@ -87,7 +104,7 @@ async function discoverAvailableModels(apiKey) {
     return discovered;
   }
 
-  // Fallback defaults if ListModels is restricted
+  // Guaranteed multimodal defaults if ListModels is restricted
   const defaults = [
     { modelName: 'gemini-2.0-flash', apiVersion: 'v1beta' },
     { modelName: 'gemini-1.5-flash', apiVersion: 'v1' },
@@ -141,8 +158,14 @@ async function callGemini({ apiKey, contents, systemInstruction, temperature = 0
 
       if (!response.ok) {
         const errorMsg = data.error?.message || `Gemini API error (${response.status})`;
-        // If model not found or unsupported, proceed to next candidate model
-        if (response.status === 404 || errorMsg.includes('not found') || errorMsg.includes('not supported')) {
+        // If model not found, unsupported, or modality not enabled (e.g. audio-only), proceed to next candidate
+        if (
+          response.status === 404 ||
+          errorMsg.includes('not found') ||
+          errorMsg.includes('not supported') ||
+          errorMsg.includes('modality') ||
+          errorMsg.includes('Image input')
+        ) {
           lastError = new Error(errorMsg);
           continue;
         }
@@ -159,7 +182,14 @@ async function callGemini({ apiKey, contents, systemInstruction, temperature = 0
       return { text, modelUsed: `${apiVersion}/${modelName}` };
     } catch (err) {
       lastError = err;
-      if (err.message && (err.message.includes('not found') || err.message.includes('not supported') || err.message.includes('404'))) {
+      if (
+        err.message &&
+        (err.message.includes('not found') ||
+         err.message.includes('not supported') ||
+         err.message.includes('modality') ||
+         err.message.includes('Image input') ||
+         err.message.includes('404'))
+      ) {
         continue;
       }
       throw err;
