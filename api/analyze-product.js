@@ -3,6 +3,7 @@
  * Analyzes product image, locks visual branding DNA as immutable ground truth,
  * and generates a copy-ready Television Commercial Master Prompt matching the requested
  * duration (10s, 20s, 30s, or custom) and language (Bangla, English, Hindi).
+ * Dynamically adapts to ANY uploaded product (Dishwash, Skincare, Haircare, Beverage, Food, Tech, Fashion, Luxury, etc.).
  */
 
 const { resolveApiKey, cleanBase64, callGemini } = require('./_gemini');
@@ -67,146 +68,68 @@ module.exports = async function handler(req, res) {
     ? String(language).toLowerCase()
     : 'bangla';
 
-  // Helper to build dynamic timeline breakdown
-  function buildTimeline(dur, scnCount) {
-    if (dur === 10) {
-      return '00-02s: Protagonist facing greasy dirty dishes. 02-04s: Product squeeze and thick pouring action. 04-06s: Macro bubbles actively cutting through grease. 06-08s: Sparkling clean plate reveal and protagonist smile. 08-10s: Brand hero packshot with tagline.';
-    }
-    if (dur === 20) {
-      return '00-03s: Frustrated protagonist facing tough greasy dishes. 03-06s: Product intro with thick pouring action onto sponge. 06-09s: Macro bubbles breaking down stubborn grease. 09-12s: Effortless single-swipe cleaning action. 12-15s: Water rinse revealing mirror-like sparkling plate. 15-18s: Protagonist smiling, delighted with kitchen freshness. 18-20s: Final hero packshot with brand payoff.';
-    }
-    if (dur === 30) {
-      return '00-05s: Frustrated protagonist in a messy kitchen. 05-10s: Product intro with thick pouring action. 10-15s: Macro bubbles fighting grease. 15-21s: Sparkling plate reveal. 21-26s: Protagonist smiling, content. 26-30s: Brand packshot with tagline.';
-    }
-    // Custom dynamic timeline
-    const step = dur / scnCount;
-    const intervals = [];
-    for (let i = 0; i < scnCount; i++) {
-      const start = Math.round(i * step);
-      const end = i === scnCount - 1 ? dur : Math.round((i + 1) * step);
-      const sStr = String(start).padStart(2, '0');
-      const eStr = String(end).padStart(2, '0');
-      if (i === 0) intervals.push(`${sStr}-${eStr}s: Frustrated protagonist facing everyday dilemma.`);
-      else if (i === 1) intervals.push(`${sStr}-${eStr}s: Product intro with sensory pouring/application.`);
-      else if (i === 2) intervals.push(`${sStr}-${eStr}s: Macro active formula fighting grease/challenge.`);
-      else if (i === scnCount - 3) intervals.push(`${sStr}-${eStr}s: Sparkling surface reveal in pristine light.`);
-      else if (i === scnCount - 2) intervals.push(`${sStr}-${eStr}s: Protagonist smiling, satisfied and confident.`);
-      else if (i === scnCount - 1) intervals.push(`${sStr}-${eStr}s: Brand packshot with tagline.`);
-      else intervals.push(`${sStr}-${eStr}s: Active performance and visible cleaning action.`);
-    }
-    return intervals.join(' ');
-  }
-
-  // Helper to build scenes guide
-  function buildScenesGuide(dur, scnCount) {
-    if (dur === 30 && scnCount === 9) {
-      return `SCENE 01: Medium shot, protagonist looking at dirty dishes.
-SCENE 02: Macro, pouring [Product Name].
-SCENE 03: Close-up of sponge cleaning plate with bubbly foam.
-SCENE 04: Extreme close-up of water rinsing a plate to reveal sparkle.
-SCENE 05: Medium, protagonist holding up a clean plate.
-SCENE 06: Static hero packshot, product with lemon and water.
-SCENE 07: Product detail focus on logo and packaging geometry.
-SCENE 08: Bright lighting adjustment for brand impact.
-SCENE 09: Final brand logo fade-out.`;
-    }
-    if (dur === 20 && scnCount === 7) {
-      return `SCENE 01: Medium shot, protagonist looking at dirty dishes in messy kitchen.
-SCENE 02: Macro, pouring [Product Name] onto sponge with thick viscosity.
-SCENE 03: Close-up of sponge cleaning plate with active bubbly foam.
-SCENE 04: Extreme close-up of water rinsing a plate to reveal sparkle.
-SCENE 05: Medium shot, protagonist holding up a clean plate, smiling, content.
-SCENE 06: Static hero packshot, product with lemon and water splash.
-SCENE 07: Final brand logo fade-out with tagline.`;
-    }
-    if (dur === 10 && scnCount === 5) {
-      return `SCENE 01: Medium shot, protagonist looking at dirty dishes.
-SCENE 02: Macro, pouring [Product Name] onto sponge.
-SCENE 03: Close-up of sponge cleaning plate with bubbly foam cutting grease.
-SCENE 04: Extreme close-up of water rinsing a plate to reveal sparkle.
-SCENE 05: Static hero packshot, product with lemon and brand logo fade-out.`;
-    }
-    // Dynamic custom scenes
-    const lines = [];
-    for (let i = 1; i <= scnCount; i++) {
-      const pad = String(i).padStart(2, '0');
-      if (i === 1) lines.push(`SCENE ${pad}: Medium shot, protagonist looking at everyday problem or dirty items.`);
-      else if (i === 2) lines.push(`SCENE ${pad}: Macro, pouring/applying [Product Name] with rich texture.`);
-      else if (i === 3) lines.push(`SCENE ${pad}: Close-up of active cleaning / performance with bubbly foam.`);
-      else if (i === scnCount - 2) lines.push(`SCENE ${pad}: Extreme close-up of surface rinse to reveal sparkling shine.`);
-      else if (i === scnCount - 1) lines.push(`SCENE ${pad}: Medium shot, protagonist holding up clean result, smiling.`);
-      else if (i === scnCount) lines.push(`SCENE ${pad}: Static hero packshot, product with fresh elements and final brand logo fade-out.`);
-      else lines.push(`SCENE ${pad}: Dynamic demonstration of product efficacy and formula action.`);
-    }
-    return lines.join('\n');
-  }
-
-  // Voiceover scripts by language & duration
   const langConfig = {
     bangla: {
       header: 'BANGLA VOICEOVER',
-      script: numDuration <= 12
-        ? "'বাসি প্লেটের তেল আর চিটচিটে ভাব নিয়ে চিন্তিত? নিয়ে আসুন নতুন [Product Name]। এর শক্তিশালী লেমন ফর্মুলা নিমিষেই কাটবে জেদি তেল। প্লেট হবে আয়নার মতো পরিষ্কার! [Product Name], পরিচ্ছন্নতার নতুন ছোঁয়া।'"
-        : numDuration <= 22
-        ? "'বাসি প্লেটের তেল আর চিটচিটে ভাব নিয়ে চিন্তিত? সব সমস্যার সমাধান এখন আপনার হাতে! নিয়ে আসুন নতুন [Product Name]। এর শক্তিশালী লেমন ফর্মুলা নিমিষেই কাটবে যেকোনো জেদি তেল আর চিটচিটে ভাব। প্লেট হবে আয়নার মতো পরিষ্কার, আর সুবাসে ভরবে রান্নাঘর। [Product Name]—পরিচ্ছন্নতার সেরা ছোঁয়া!'"
-        : "'বাসি প্লেটের তেল আর চিটচিটে ভাব নিয়ে চিন্তিত? সব সমস্যার সমাধান এখন আপনার হাতে! নিয়ে আসুন নতুন [Product Name]। এর শক্তিশালী লেমন ফর্মুলা নিমিষেই কাটবে যেকোনো জেদি তেল আর চিটচিটে ভাব। প্লেট হবে আয়নার মতো পরিষ্কার, আর সুবাসে ভরবে রান্নাঘর। [Product Name], পরিচ্ছন্নতার নতুন ছোঁয়া।'"
+      label: 'Bangla (বাংলা)',
+      instruction: 'Write an authentic, highly persuasive, catchy television commercial voiceover in BANGLA (বাংলা) crafted specifically for this product and its benefits, matching the ' + numDuration + '-second duration. Put the voiceover script inside single quotes.'
     },
     english: {
       header: 'ENGLISH VOICEOVER',
-      script: numDuration <= 12
-        ? "'Tired of stubborn grease and messy dishes? Discover new [Product Name]. Its ultra-powerful formula cuts tough oil in seconds for mirror-clean sparkle. [Product Name], the touch of pure brilliance.'"
-        : numDuration <= 22
-        ? "'Struggling with tough grease and dirty dishes? The complete solution is now in your hands! Bring home new [Product Name]. Its high-potency lemon formula dissolves stubborn grease instantly. Plates emerge sparkling like mirrors while fresh citrus aroma fills your kitchen. [Product Name], the gold standard in clean.'"
-        : "'Tired of stubborn grease and messy kitchen challenges? The complete solution is now in your hands! Introducing all-new [Product Name]. Its high-potency lemon formula cuts through stubborn grease and sticky grime in seconds. Plates emerge sparkling clean like mirrors, while refreshing fragrance fills the kitchen. [Product Name], the new touch of pure brilliance.'"
+      label: 'English',
+      instruction: 'Write a high-end broadcast television commercial voiceover in English crafted specifically for this product and its benefits, matching the ' + numDuration + '-second duration. Put the voiceover script inside single quotes.'
     },
     hindi: {
       header: 'HINDI VOICEOVER',
-      script: numDuration <= 12
-        ? "'क्या बर्तनों की जिद्दी चिकनाई से परेशान हैं? ले आएं नया [Product Name]। इसका ताकतवर लेमन फॉर्मूला सेकंडों में काटे जिद्दी तेल और दे बेदाग चमक। [Product Name], चमक ऐसी जो दिल जीत ले।'"
-        : numDuration <= 22
-        ? "'बासी बर्तनों का जिद्दी तेल और चिकनाई छीन रही है सुकून? अब समाधान आपके हाथ में है! अपनाएं नया [Product Name]। इसका असरदार लेमन फॉर्मूला पल भर में काटे सख्त चिकनाई। बर्तन चमकें आईने जैसे साफ, और किचन महके ताजगी से। [Product Name]—सफाई का नया एहसास!'"
-        : "'क्या बासी बर्तनों का जिद्दी तेल और चिकनाई आपको परेशान कर रही है? अब हर समस्या का समाधान आपके हाथ में है! लेकर आएं नया [Product Name]। इसका शक्तिशाली लेमन फॉर्मूला सेकंडों में काटे किसी भी जिद्दी तेल और चिकनाहट को। बर्तन होंगे आईने जैसे साफ, और ताजगी से महकेगा आपका किचन। [Product Name], स्वच्छता का नया स्पर्श।'"
+      label: 'Hindi (हिंदी)',
+      instruction: 'Write a catchy, emotive, broadcast-ready television commercial voiceover in HINDI (हिंदी) crafted specifically for this product and its benefits, matching the ' + numDuration + '-second duration. Put the voiceover script inside single quotes.'
     }
   }[chosenLanguage];
 
-  const timelineGuide = buildTimeline(numDuration, numScenes);
-  const scenesGuide = buildScenesGuide(numDuration, numScenes);
-
   const systemInstruction = `You are CineFlow AI, an elite Television Commercial Creative Director and Commercial Storyboard Architect.
-Your task is to examine an uploaded hero product image, detect the exact product name, branding, and packaging details, and formulate a copy-ready Television Commercial Master Prompt.
+Your task is to examine the uploaded product image with extreme precision and write a completely customized Television Commercial Master Prompt tailored specifically to THIS product.
 
-CRITICAL INSTRUCTION:
-Do NOT output a simple static 3D product render prompt.
-You MUST craft a complete, narrative-driven commercial transformation prompt that guides AI tools (ChatGPT, Midjourney, Google Veo, Runway, Sora) to create a full multi-scene television commercial storyboard.
-The commercial MUST feature the story arc:
-1. Relatable problem / protagonist facing dilemma.
-2. Product introduction with sensory pouring/application.
-3. Macro formula performance & bubbles/active foam cutting through challenge.
-4. Sparkling surface rinse & mirror-like transformation reveal.
-5. Protagonist smiling, delighted and content.
-6. Hero packshot on pedestal with fresh thematic elements (lemons/water/nature) and final brand logo fade-out.
+STEP 1: PRODUCT DNA EXTRACTION
+- Look closely at the image to detect:
+  1. Exact Brand Name & Product Name on the packaging label (e.g., dishwashing liquid, skincare cream, shampoo, perfume, energy drink, snack, electronics, shoes, etc.).
+  2. Product Category and the REAL everyday pain point / dilemma it solves.
+  3. Packaging shape (bottle, jar, can, tube, box, device), cap style, colors, typography, and texture/viscosity.
+
+STEP 2: STORY TRANSFORMATION ARC (NOT A STATIC 3D MODEL)
+Craft a complete narrative commercial that shows:
+1. Relatable everyday problem / dilemma (protagonist facing category-specific frustration).
+2. Sensory product introduction (pour, lather, spray, open, apply, or interact with signature packaging texture).
+3. Active formula performance / technology in action (macro bubbles, foam, splash, serum absorption, sound wave, etc.).
+4. Dramatic transformation & visible reveal (sparkling clean, luminous skin, energetic revitalization, pristine result).
+5. Protagonist smiling, delighted, satisfied and confident.
+6. Grand hero packshot on pedestal with thematic aesthetic elements matching THIS product (e.g. lemons/water for lemon dishwash; aloe/dew for skincare; ice/effervescence for beverage; neon/metal for tech), packaging detail focus, and final brand logo fade-out.
 
 FORMATTING REQUIREMENTS:
-1. STRICTLY DO NOT output markdown header symbols (#, ##, ###), bold asterisks (**), bullet points (-), or horizontal dividers (---).
+1. STRICTLY DO NOT output any markdown headers (#, ##, ###), bold asterisks (**), bullet points (-), or horizontal dividers (---).
 2. Output clean, copy-ready plain text.
 3. Every single section MUST start with an UPPERCASE label followed immediately by a colon (:) on its own line.
-4. Replace [Product Name] with the exact detected product name from the image.
-5. In ${langConfig.header}, use the provided voiceover script, inserting the exact product name.`;
+4. The content of every section MUST be 100% customized to the product in the image. NEVER use generic dishwashing or kitchen terms if the product is skincare, beverage, tech, fashion, or anything else!`;
 
-  const userPrompt = `Analyze this hero product image with extreme precision and write the copy-ready ${numDuration}-Second Commercial Master Prompt with ${numScenes} scenes.
+  const userPrompt = `Carefully examine this uploaded product image and formulate the copy-ready ${numDuration}-Second Commercial Master Prompt with exactly ${numScenes} scenes in ${langConfig.label}.
 
-Follow this EXACT structure:
+Generate the prompt following this EXACT uppercase-labeled structure:
 
-MASTER COMMERCIAL CONCEPT: Create a ${numDuration}-second premium commercial for '[Product Name]'. The goal is to show the transformation of a messy kitchen into a sparkling clean space using the product.
-${numDuration}-SECOND TIMELINE: ${timelineGuide}
-${scenesGuide}
-CAMERA & CINEMATOGRAPHY: Use professional cinema camera settings, shallow depth of field for product shots, tracking shots for cleaning action.
-LIGHTING & COLOR: Transition from neutral, low-contrast kitchen lighting to high-contrast, bright, saturated, refreshing clean kitchen lighting.
-PRODUCT PRESERVATION: Maintain exact bottle shape, logo placement, and liquid viscosity. No morphing.
-${langConfig.header}: ${langConfig.script}
-MUSIC: Upbeat, rhythmic, fresh acoustic pop.
-SOUND DESIGN: Clean, crisp, and high-fidelity SFX (pouring, bubbling, water rinse, chime).
-FINAL BRAND PAYOFF: Hero shot with bright lemons and water splash.
+MASTER COMMERCIAL CONCEPT: Create a ${numDuration}-second premium commercial for '[Exact Detected Product Name]'. The goal is to show the transformation of [specific everyday problem/dilemma this product solves] into [radiant/clean/energized/delighted solution space] using the product.
+${numDuration}-SECOND TIMELINE: [Divide ${numDuration} seconds into ${numScenes} proportional intervals (e.g. 00-03s: ..., 03-06s: ...). Each interval must describe the story progression for THIS product.]
+SCENE 01: [Medium shot of protagonist facing the specific problem/dilemma.]
+SCENE 02: [Macro or close-up of product interaction: pouring, applying, opening, or spraying with signature packaging details and texture.]
+SCENE 03: [Close-up of formula action, sensory efficacy, bubbles, foam, splash, or technology solving the problem.]
+[Continue sequentially with SCENE 04, SCENE 05... up to SCENE ${String(numScenes).padStart(2, '0')}]:
+SCENE ${String(numScenes - 2).padStart(2, '0')}: [Extreme close-up or tracking reveal of the transformed result.]
+SCENE ${String(numScenes - 1).padStart(2, '0')}: [Medium shot of protagonist smiling, completely satisfied and confident.]
+SCENE ${String(numScenes).padStart(2, '0')}: [Static hero packshot of product with thematic natural/aesthetic elements matching THIS product, packaging detail focus, and final brand logo fade-out.]
+CAMERA & CINEMATOGRAPHY: [Professional cinema camera settings, focal length, depth of field, and tracking motion tailored to this product.]
+LIGHTING & COLOR: [Lighting transition from moody problem lighting to vibrant, high-contrast lighting highlighting the product's packaging colors.]
+PRODUCT PRESERVATION: Maintain exact [describe detected packaging geometry], logo placement, colors, and [texture/viscosity/finish]. No morphing.
+${langConfig.header}: [${langConfig.instruction}]
+MUSIC: [Music genre and instrumentation perfectly fitting this product's personality and vibe.]
+SOUND DESIGN: [Crisp foley SFX tailored specifically to this product's actions, e.g. pour, foam, fizz, spray, rinse, chime, whoosh.]
+FINAL BRAND PAYOFF: Hero shot with [thematic aesthetic elements matching this product] and brand logo.
 FINAL QUALITY: 4k, cinematic, high-speed, sharp focus, professional color grade.`;
 
   try {
@@ -228,21 +151,20 @@ FINAL QUALITY: 4k, cinematic, high-speed, sharp focus, professional color grade.
       apiKey,
       contents,
       systemInstruction,
-      temperature: 0.35
+      temperature: 0.4
     });
 
     let outputText = result.text || '';
 
-    // Extract product name if possible
+    // Extract detected product name
     let productName = 'Hero Product';
     const match = outputText.match(/commercial for '([^']+)'/i) ||
                   outputText.match(/commercial for "([^"]+)"/i) ||
-                  outputText.match(/showcasing [^.]*? of\s*([^\n\r.]+)/i) ||
-                  outputText.match(/preservation of\s*([^\n\r,]+)/i) ||
-                  outputText.match(/CONCEPT:\s*[^.]*?for\s*([^\n\r.]+)/i) ||
-                  outputText.match(/Product:\s*([^\n\r*]+)/i);
+                  outputText.match(/commercial for ([^\r\n.]+)/i) ||
+                  outputText.match(/CONCEPT:\s*[^.]*?for\s*([^\r\n.]+)/i) ||
+                  outputText.match(/Product:\s*([^\r\n*]+)/i);
     if (match && match[1] && match[1].trim()) {
-      productName = match[1].trim().replace(/\.$/, '');
+      productName = match[1].trim().replace(/\.$/, '').replace(/^['"]|['"]$/g, '');
     }
 
     // Clean any accidental markdown hashes or asterisks from the output
