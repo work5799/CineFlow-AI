@@ -13174,22 +13174,22 @@ const K1 = [["path", {
                 children: "Upload your product image. CineFlow AI formulates the complete " + selDuration + "-second television commercial campaign in " + (selLang === "bangla" ? "Bangla" : selLang === "english" ? "English" : "Hindi") + " and generates ONE unified Master Commercial Prompt for Google Flow & Veo."
             })]
         }), f.jsxs("div", {
-            className: "rounded-2xl bg-[#12131C] border border-zinc-800 p-3 sm:p-4 shadow-sm max-w-7xl mx-auto relative z-10",
+            className: "cineflow-control-card max-w-7xl mx-auto relative z-10 space-y-3",
             children: [
                 f.jsxs("div", {
-                    className: "cineflow-control-row",
+                    className: "cineflow-control-grid",
                     children: [
                         f.jsxs("div", {
-                            className: "space-y-1.5",
+                            className: "space-y-2",
                             children: [
                                 f.jsxs("div", {
-                                    className: "flex items-center justify-between px-0.5",
+                                    className: "flex items-center justify-between px-1",
                                     children: [
                                         f.jsxs("div", {
-                                            className: "flex items-center gap-1.5",
+                                            className: "flex items-center gap-2",
                                             children: [
                                                 f.jsxs("svg", {
-                                                    className: "w-3.5 h-3.5 text-emerald-400 shrink-0",
+                                                    className: "w-4 h-4 text-emerald-400 shrink-0",
                                                     fill: "none",
                                                     viewBox: "0 0 24 24",
                                                     stroke: "currentColor",
@@ -13197,89 +13197,89 @@ const K1 = [["path", {
                                                     children: [f.jsx("circle", { cx: "12", cy: "12", r: "10" }), f.jsx("polyline", { points: "12 6 12 12 16 14" })]
                                                 }),
                                                 f.jsx("span", {
-                                                    className: "text-[11px] font-bold font-mono tracking-wider text-emerald-400 uppercase",
+                                                    className: "text-xs font-bold tracking-wide text-zinc-200 uppercase",
                                                     children: "Commercial Duration"
                                                 })
                                             ]
                                         }),
                                         f.jsx("span", {
-                                            className: "text-[10px] font-mono text-zinc-500",
-                                            children: "Single Source of Truth"
+                                            className: "text-[11px] font-mono text-zinc-500",
+                                            children: selDuration === 10 ? "5 Scenes • Default" : selDuration === 25 ? "8 Scenes • Richer" : "9 Scenes • Film"
                                         })
                                     ]
                                 }),
                                 f.jsxs("div", {
-                                    className: "cineflow-tabs-3 bg-[#090A0F] p-1 rounded-xl border border-zinc-800/80",
+                                    className: "cineflow-segment-bar",
                                     children: [
                                         f.jsxs("button", {
                                             type: "button",
                                             onClick: () => onSelectDuration(10),
-                                            className: "cineflow-tab-btn-compact " + (selDuration === 10 ? "active" : "inactive"),
+                                            className: "cineflow-segment-btn " + (selDuration === 10 ? "active" : "inactive"),
                                             children: [
                                                 f.jsxs("div", {
-                                                    className: "flex items-center justify-center gap-1.5 mb-0.5",
+                                                    className: "flex items-center gap-1.5",
                                                     children: [
                                                         f.jsx("span", {
-                                                            className: "text-xs font-bold font-mono " + (selDuration === 10 ? "text-emerald-400" : "text-zinc-300"),
-                                                            children: "[ 10 SEC ]"
+                                                            className: "text-xs font-bold font-sans",
+                                                            children: "10 SEC"
                                                         }),
                                                         f.jsx("span", {
-                                                            className: "px-1.5 py-0.2 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40",
+                                                            className: "cineflow-badge-pill",
                                                             children: "DEFAULT"
                                                         })
                                                     ]
                                                 }),
-                                                f.jsx("div", {
-                                                    className: "text-[10px] font-mono text-zinc-400",
-                                                    children: "5 Scenes • Standard"
+                                                f.jsx("span", {
+                                                    className: "text-[11px] opacity-80 mt-0.5 font-medium",
+                                                    children: "5 Scenes"
                                                 })
                                             ]
                                         }),
                                         f.jsxs("button", {
                                             type: "button",
                                             onClick: () => onSelectDuration(25),
-                                            className: "cineflow-tab-btn-compact " + (selDuration === 25 ? "active" : "inactive"),
+                                            className: "cineflow-segment-btn " + (selDuration === 25 ? "active" : "inactive"),
                                             children: [
                                                 f.jsxs("div", {
-                                                    className: "flex items-center justify-center gap-1.5 mb-0.5",
+                                                    className: "flex items-center gap-1.5",
                                                     children: [
                                                         f.jsx("span", {
-                                                            className: "text-xs font-bold font-mono " + (selDuration === 25 ? "text-emerald-400" : "text-zinc-300"),
-                                                            children: "[ 25 SEC ]"
+                                                            className: "text-xs font-bold font-sans",
+                                                            children: "25 SEC"
                                                         }),
                                                         selDuration === 25 && f.jsx("span", {
-                                                            className: "px-1.5 py-0.2 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40",
+                                                            className: "cineflow-badge-pill",
                                                             children: "ACTIVE"
                                                         })
                                                     ]
                                                 }),
-                                                f.jsx("div", {
-                                                    className: "text-[10px] font-mono text-zinc-400",
-                                                    children: "8 Scenes • Richer Story"
+                                                f.jsx("span", {
+                                                    className: "text-[11px] opacity-80 mt-0.5 font-medium",
+                                                    children: "8 Scenes"
                                                 })
                                             ]
                                         }),
                                         f.jsxs("button", {
                                             type: "button",
                                             onClick: () => onSelectDuration(30),
-                                            className: "cineflow-tab-btn-compact " + (selDuration === 30 ? "active" : "inactive"),
+                                            className: "cineflow-segment-btn " + (selDuration === 30 ? "active" : "inactive"),
                                             children: [
                                                 f.jsxs("div", {
-                                                    className: "flex items-center justify-center gap-1.5 mb-0.5",
+                                                    className: "flex items-center gap-1.5",
                                                     children: [
                                                         f.jsx("span", {
-                                                            className: "text-xs font-bold font-mono " + (selDuration === 30 ? "text-emerald-400" : "text-zinc-300"),
-                                                            children: "[ 30 SEC ]"
+                                                            className: "text-xs font-bold font-sans",
+                                                            children: "30 SEC"
                                                         }),
                                                         selDuration === 30 && f.jsx("span", {
-                                                            className: "px-1.5 py-0.2 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40",
+                                                            className: "cineflow-badge-pill",
                                                             children: "ACTIVE"
                                                         })
                                                     ]
                                                 }),
-                                                f.jsx("div", {
-                                                    className: "text-[10px] font-mono text-zinc-400",
-                                                    children: "9 Scenes • Cinematic"
+                                                f.jsx("span", {
+                                                    className: "text-[11px] opacity-80 mt-0.5 font-medium",
+                                                    children: "9 Scenes"
                                                 })
                                             ]
                                         })
@@ -13288,106 +13288,106 @@ const K1 = [["path", {
                             ]
                         }),
                         f.jsxs("div", {
-                            className: "space-y-1.5",
+                            className: "space-y-2",
                             children: [
                                 f.jsxs("div", {
-                                    className: "flex items-center justify-between px-0.5",
+                                    className: "flex items-center justify-between px-1",
                                     children: [
                                         f.jsxs("div", {
-                                            className: "flex items-center gap-1.5",
+                                            className: "flex items-center gap-2",
                                             children: [
                                                 f.jsxs("svg", {
-                                                    className: "w-3.5 h-3.5 text-emerald-400 shrink-0",
+                                                    className: "w-4 h-4 text-emerald-400 shrink-0",
                                                     fill: "none",
                                                     viewBox: "0 0 24 24",
                                                     stroke: "currentColor",
                                                     strokeWidth: "2",
-                                                    children: [f.jsx("circle", { cx: "12", cy: "12", r: "10" }), f.jsx("line", { x1: "2", y1: "12", x2: "22", y2: "12" }), f.jsx("path", { d: "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" })]
+                                                    children: [f.jsx("circle", { cx: "12", cy: "12", r: "10" }), f.jsx("line", { x1: "2", y1: "12", x2: "22", y2: "12" }), f.jsx("path", { d: "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" })]
                                                 }),
                                                 f.jsx("span", {
-                                                    className: "text-[11px] font-bold font-mono tracking-wider text-emerald-400 uppercase",
-                                                    children: "Voice & Script Language"
+                                                    className: "text-xs font-bold tracking-wide text-zinc-200 uppercase",
+                                                    children: "Voiceover Language"
                                                 })
                                             ]
                                         }),
                                         f.jsx("span", {
-                                            className: "text-[10px] font-mono text-zinc-500",
-                                            children: "Target Locale"
+                                            className: "text-[11px] font-mono text-zinc-500",
+                                            children: selLang === "bangla" ? "বাংলা Script" : selLang === "english" ? "English Global" : "हिंदी Script"
                                         })
                                     ]
                                 }),
                                 f.jsxs("div", {
-                                    className: "cineflow-tabs-3 bg-[#090A0F] p-1 rounded-xl border border-zinc-800/80",
+                                    className: "cineflow-segment-bar",
                                     children: [
                                         f.jsxs("button", {
                                             type: "button",
                                             onClick: () => onSelectLang("bangla"),
-                                            className: "cineflow-tab-btn-compact " + (selLang === "bangla" ? "active" : "inactive"),
+                                            className: "cineflow-segment-btn " + (selLang === "bangla" ? "active" : "inactive"),
                                             children: [
                                                 f.jsxs("div", {
-                                                    className: "flex items-center justify-center gap-1.5 mb-0.5",
+                                                    className: "flex items-center gap-1.5",
                                                     children: [
                                                         f.jsx("span", {
-                                                            className: "text-xs font-bold font-mono " + (selLang === "bangla" ? "text-emerald-400" : "text-zinc-300"),
-                                                            children: "[ BANGLA ]"
+                                                            className: "text-xs font-bold font-sans",
+                                                            children: "Bangla"
                                                         }),
                                                         f.jsx("span", {
-                                                            className: "px-1.5 py-0.2 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40",
+                                                            className: "cineflow-badge-pill",
                                                             children: "DEFAULT"
                                                         })
                                                     ]
                                                 }),
-                                                f.jsx("div", {
-                                                    className: "text-[10px] font-mono text-zinc-400",
-                                                    children: "বাংলা • Local TVC"
+                                                f.jsx("span", {
+                                                    className: "text-[11px] opacity-80 mt-0.5 font-medium",
+                                                    children: "বাংলা TVC"
                                                 })
                                             ]
                                         }),
                                         f.jsxs("button", {
                                             type: "button",
                                             onClick: () => onSelectLang("english"),
-                                            className: "cineflow-tab-btn-compact " + (selLang === "english" ? "active" : "inactive"),
+                                            className: "cineflow-segment-btn " + (selLang === "english" ? "active" : "inactive"),
                                             children: [
                                                 f.jsxs("div", {
-                                                    className: "flex items-center justify-center gap-1.5 mb-0.5",
+                                                    className: "flex items-center gap-1.5",
                                                     children: [
                                                         f.jsx("span", {
-                                                            className: "text-xs font-bold font-mono " + (selLang === "english" ? "text-emerald-400" : "text-zinc-300"),
-                                                            children: "[ ENGLISH ]"
+                                                            className: "text-xs font-bold font-sans",
+                                                            children: "English"
                                                         }),
                                                         selLang === "english" && f.jsx("span", {
-                                                            className: "px-1.5 py-0.2 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40",
+                                                            className: "cineflow-badge-pill",
                                                             children: "ACTIVE"
                                                         })
                                                     ]
                                                 }),
-                                                f.jsx("div", {
-                                                    className: "text-[10px] font-mono text-zinc-400",
-                                                    children: "English • Global TVC"
+                                                f.jsx("span", {
+                                                    className: "text-[11px] opacity-80 mt-0.5 font-medium",
+                                                    children: "Global Commercial"
                                                 })
                                             ]
                                         }),
                                         f.jsxs("button", {
                                             type: "button",
                                             onClick: () => onSelectLang("hindi"),
-                                            className: "cineflow-tab-btn-compact " + (selLang === "hindi" ? "active" : "inactive"),
+                                            className: "cineflow-segment-btn " + (selLang === "hindi" ? "active" : "inactive"),
                                             children: [
                                                 f.jsxs("div", {
-                                                    className: "flex items-center justify-center gap-1.5 mb-0.5",
+                                                    className: "flex items-center gap-1.5",
                                                     children: [
                                                         f.jsx("span", {
-                                                            className: "text-xs font-bold font-mono " + (selLang === "hindi" ? "text-emerald-400" : "text-zinc-300"),
-                                                            children: "[ HINDI ]"
+                                                            className: "text-xs font-bold font-sans",
+                                                            children: "Hindi"
                                                         }),
                                                         selLang === "hindi" && f.jsx("span", {
-                                                            className: "px-1.5 py-0.2 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-500/25 text-emerald-300 border border-emerald-500/40",
+                                                            className: "cineflow-badge-pill",
                                                             children: "ACTIVE"
                                                         })
                                                     ]
                                                 }),
-                                                f.jsx("div", {
-                                                    className: "text-[10px] font-mono text-zinc-400",
-                                                    children: "हिंदी • Indian TVC"
+                                                f.jsx("span", {
+                                                    className: "text-[11px] opacity-80 mt-0.5 font-medium",
+                                                    children: "हिंदी TVC"
                                                 })
                                             ]
                                         })

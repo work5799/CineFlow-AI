@@ -711,3 +711,91 @@ button.bg-zinc-900:hover {
   border-color: rgba(63, 63, 70, 0.9) !important;
   color: #e4e4e7 !important;
 }
+
+/* Modern Studio Segmented Control Group */
+.cineflow-control-card {
+  background: rgba(6, 14, 9, 0.94) !important;
+  border: 1px solid rgba(74, 222, 128, 0.22) !important;
+  border-radius: 18px !important;
+  padding: 1rem 1.25rem !important;
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(74, 222, 128, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.cineflow-control-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 1.25rem !important;
+}
+
+@media (max-width: 860px) {
+  .cineflow-control-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+.cineflow-segment-bar {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 6px !important;
+  background: rgba(3, 8, 5, 0.9) !important;
+  padding: 4px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(39, 39, 42, 0.65) !important;
+}
+
+.cineflow-segment-btn {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 10px !important;
+  border-radius: 9px !important;
+  border: 1px solid transparent !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none !important;
+  min-height: 48px !important;
+}
+
+.cineflow-segment-btn.active {
+  background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #22c55e 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.cineflow-segment-btn.inactive {
+  background: transparent !important;
+  color: #a1a1aa !important;
+}
+
+.cineflow-segment-btn.inactive:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #f4f4f5 !important;
+}
+
+.cineflow-badge-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  padding: 1px 5px !important;
+  border-radius: 4px !important;
+  line-height: 1.2 !important;
+}
+
+.cineflow-segment-btn.active .cineflow-badge-pill {
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.cineflow-segment-btn.inactive .cineflow-badge-pill {
+  background: rgba(39, 39, 42, 0.8) !important;
+  color: #a1a1aa !important;
+  border: 1px solid rgba(63, 63, 70, 0.6) !important;
+}
