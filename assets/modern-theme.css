@@ -605,3 +605,8 @@ button.bg-zinc-900:hover {
   color: #00ff66 !important;
   text-shadow: 0 0 10px rgba(0, 255, 102, 0.7);
 }
+
+/* Match card containers width with max-w-7xl pipeline section */
+.max-w-5xl {
+  max-width: 80rem !important;
+}

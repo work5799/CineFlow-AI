@@ -13170,7 +13170,7 @@ const K1 = [["path", {
                 children: "Upload your product image. CineFlow AI formulates the complete 10-second television commercial campaign and generates ONE unified Master Commercial Prompt for Google Flow & Veo."
             })]
         }), f.jsxs("div", {
-            className: "relative z-10 max-w-5xl mx-auto",
+            className: "relative z-10 max-w-7xl mx-auto",
             children: [f.jsx("input", {
                 ref: J,
                 type: "file",
@@ -13309,7 +13309,7 @@ const $1 = ({analysis: E, onStartOver: _}) => {
     }
     ;
     return f.jsx("div", {
-        className: "py-6 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-6",
+        className: "py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6",
         children: f.jsxs("section", {
             id: "section-master-commercial-prompt",
             className: "space-y-4 animate-reveal",
@@ -13429,7 +13429,7 @@ const $1 = ({analysis: E, onStartOver: _}) => {
     }
     ;
     return f.jsxs("div", {
-        className: "py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8",
+        className: "py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8",
         children: [f.jsxs("div", {
             className: "relative flex items-center justify-center my-10",
             children: [f.jsx("div", {
@@ -13905,7 +13905,7 @@ function P1() {
             onOpenApiKeyModal: () => R(!0),
             onGoHome: r
         }), Ut && f.jsx("div", {
-            className: "max-w-5xl mx-auto px-4 pt-4 w-full relative z-20",
+            className: "max-w-7xl mx-auto px-4 pt-4 w-full relative z-20",
             children: f.jsxs("div", {
                 className: "p-4 rounded-xl bg-red-950/80 border border-red-800/80 text-red-200 text-xs sm:text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm",
                 children: [f.jsxs("div", {
@@ -13966,7 +13966,7 @@ function P1() {
         }), f.jsx("footer", {
             className: "border-t border-zinc-800/80 bg-[#090A0F] py-6 text-center text-xs text-zinc-400 font-mono relative z-10",
             children: f.jsxs("div", {
-                className: "max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4",
+                className: "max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4",
                 children: [f.jsxs("div", {
                     className: "flex items-center gap-2",
                     children: [f.jsx("span", {
