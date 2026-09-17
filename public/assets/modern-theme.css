@@ -1,0 +1,550 @@
+/* ==========================================================================
+   CineFlow AI — Luxury Cyber Studio Theme (Refined & Balanced)
+   Clean, professional hierarchy with peripheral neon emerald accents
+   ========================================================================== */
+
+:root {
+  --bg-deep: #030604;
+  --bg-dark: #070d08;
+  --bg-card: rgba(8, 15, 10, 0.92);
+  --bg-card-elevated: rgba(12, 22, 15, 0.96);
+  
+  --neon-green: #22c55e;
+  --neon-green-bright: #4ade80;
+  --neon-green-hyper: #00ff66;
+  --neon-lime: #a3e635;
+  --neon-emerald-dark: #15803d;
+
+  --border-neon: rgba(74, 222, 128, 0.22);
+  --border-neon-hover: rgba(74, 222, 128, 0.6);
+  --border-subtle: rgba(255, 255, 255, 0.07);
+
+  --text-main: #f0fdf4;
+  --text-sub: #bbf7d0;
+  --text-muted: #86efac;
+}
+
+/* --------------------------------------------------------------------------
+   Global Layout & Clean Atmospheric Depth
+   -------------------------------------------------------------------------- */
+html, body {
+  background-color: var(--bg-deep) !important;
+  color: var(--text-main) !important;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  position: relative;
+  overflow-x: hidden;
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Atmospheric Ambient Lighting & Subtle Micro-Grid (No harsh clutter) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image: 
+    /* Top ambient emerald bloom */
+    radial-gradient(circle at 50% -12%, rgba(34, 197, 94, 0.2) 0%, transparent 60%),
+    /* Right peripheral glow */
+    radial-gradient(circle at 95% 25%, rgba(74, 222, 128, 0.12) 0%, transparent 50%),
+    /* Left peripheral glow */
+    radial-gradient(circle at 5% 70%, rgba(21, 128, 61, 0.14) 0%, transparent 55%),
+    /* Subtle, clean micro-dots */
+    radial-gradient(rgba(74, 222, 128, 0.08) 1.2px, transparent 1.2px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  z-index: 0;
+}
+
+/* Subtle Vignette for Cinema Depth */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 65%, rgba(2, 5, 3, 0.8) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Force Transparency on Root Wrappers */
+#root,
+#root > div,
+.min-h-screen,
+.bg-\[\#090A0F\],
+.bg-\[\#0B0D0F\],
+.bg-\[\#060709\],
+.bg-\[\#030604\] {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+#root {
+  position: relative;
+  z-index: 2 !important;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #030604;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(34, 197, 94, 0.25);
+  border-radius: 999px;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-green-bright);
+}
+
+/* --------------------------------------------------------------------------
+   Peripheral Geometric Shapes (Framing content without clashing)
+   -------------------------------------------------------------------------- */
+.cyber-bg-shapes {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0 !important;
+  overflow: hidden;
+}
+
+/* 1. Fluid Neon Wave (Top ambient glow) */
+.cyber-wave-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 320px;
+  opacity: 0.55;
+  filter: drop-shadow(0 0 16px rgba(0, 255, 102, 0.45));
+  animation: waveFloat 9s ease-in-out infinite alternate;
+}
+
+@keyframes waveFloat {
+  0% { transform: translateY(0); opacity: 0.5; }
+  100% { transform: translateY(-6px); opacity: 0.65; }
+}
+
+/* 2. Hexagonal Honeycomb (Bottom-left corner only) */
+.cyber-hex-decor {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 260px;
+  height: 420px;
+  opacity: 0.65;
+  filter: drop-shadow(0 0 16px rgba(0, 255, 102, 0.4));
+  animation: hexSway 10s ease-in-out infinite alternate;
+}
+
+@keyframes hexSway {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+.hex-pulse-subtle {
+  animation: hexPulseSubtle 3s infinite ease-in-out;
+}
+
+@keyframes hexPulseSubtle {
+  0%, 100% {
+    stroke-opacity: 0.6;
+    fill-opacity: 0.08;
+    filter: drop-shadow(0 0 4px #00ff66);
+  }
+  50% {
+    stroke-opacity: 1;
+    fill-opacity: 0.22;
+    filter: drop-shadow(0 0 10px #00ff66);
+  }
+}
+
+/* 3. Diagonal Lasers & Lens Flare (Top-right corner only) */
+.cyber-laser-decor {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 380px;
+  height: 460px;
+  opacity: 0.7;
+  filter: drop-shadow(0 0 14px rgba(34, 197, 94, 0.45));
+  animation: laserFloat 8s ease-in-out infinite alternate;
+}
+
+@keyframes laserFloat {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-6px) translateX(-4px); }
+}
+
+.flare-pulse {
+  animation: flareTwinkle 2.5s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes flareTwinkle {
+  0%, 100% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+  50% { transform: scale(1.2) rotate(45deg); opacity: 1; filter: drop-shadow(0 0 10px #ffffff) drop-shadow(0 0 15px #00ff66); }
+}
+
+/* --------------------------------------------------------------------------
+   Header / Floating Navigation Pill (Flawless Floating Aesthetic)
+   -------------------------------------------------------------------------- */
+/* Outer header wrapper is completely transparent - NO background box, NO awkward lines */
+header, nav {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* The actual floating pill navbar */
+header > div,
+nav > div {
+  background: rgba(6, 14, 9, 0.88) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border: 1px solid rgba(74, 222, 128, 0.28) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 12px 35px -8px rgba(0, 0, 0, 0.85), 0 0 25px -4px rgba(34, 197, 94, 0.18) !important;
+  transition: all 0.25s ease !important;
+}
+
+header > div:hover {
+  border-color: rgba(74, 222, 128, 0.45) !important;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.9), 0 0 35px -4px rgba(34, 197, 94, 0.25) !important;
+}
+
+/* Logo Box (CF) */
+#btn-header-logo .w-10.h-10 {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.25), rgba(21, 128, 61, 0.4)) !important;
+  border: 1.5px solid rgba(74, 222, 128, 0.6) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+#btn-header-logo:hover .w-10.h-10 {
+  transform: scale(1.06);
+  box-shadow: 0 0 22px rgba(34, 197, 94, 0.7) !important;
+  border-color: #00ff66 !important;
+}
+
+#btn-header-logo .font-mono {
+  color: #00ff66 !important;
+  font-weight: 900 !important;
+  font-size: 13px !important;
+  letter-spacing: -0.02em !important;
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.6) !important;
+}
+
+/* Brand Title Text */
+#btn-header-logo .font-sans {
+  color: #f0fdf4 !important;
+  font-weight: 800 !important;
+  font-size: 17px !important;
+  letter-spacing: -0.03em !important;
+}
+
+#btn-header-logo .font-sans span {
+  color: #00ff66 !important;
+  background: linear-gradient(135deg, #00ff66 0%, #4ade80 60%, #a3e635 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 0 12px rgba(0, 255, 102, 0.6)) !important;
+}
+
+/* Separator & Tagline */
+#btn-header-logo span.border-l {
+  border-color: rgba(74, 222, 128, 0.3) !important;
+  color: #86efac !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Connect API Button */
+#btn-connect-api {
+  background: rgba(8, 22, 13, 0.85) !important;
+  border: 1px solid rgba(74, 222, 128, 0.35) !important;
+  color: #4ade80 !important;
+  backdrop-filter: blur(12px) !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 0 16px -2px rgba(34, 197, 94, 0.25) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#btn-connect-api:hover {
+  background: rgba(14, 34, 20, 0.95) !important;
+  border-color: #00ff66 !important;
+  color: #00ff66 !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.5) !important;
+}
+
+#btn-connect-api svg {
+  color: #00ff66 !important;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 102, 0.6)) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section & Clean Hierarchy
+   -------------------------------------------------------------------------- */
+h1.tracking-tight {
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
+  color: #f0fdf4 !important;
+}
+
+h1.tracking-tight .text-blue-400,
+h1.tracking-tight span {
+  background: linear-gradient(135deg, #00ff66 0%, #4ade80 40%, #a3e635 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline-block;
+  filter: drop-shadow(0 0 25px rgba(34, 197, 94, 0.5)) !important;
+}
+
+/* Hero Badge Pill */
+.inline-flex.items-center.gap-2.px-3\.5.py-1,
+.inline-flex.items-center.gap-2.px-3.py-1,
+.inline-flex.items-center.gap-2.px-3.py-1\.5 {
+  background: rgba(8, 22, 12, 0.85) !important;
+  border: 1px solid rgba(74, 222, 128, 0.4) !important;
+  color: #4ade80 !important;
+  backdrop-filter: blur(14px) !important;
+  box-shadow: 0 0 20px -4px rgba(34, 197, 94, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  border-radius: 9999px !important;
+}
+
+.inline-flex.items-center span:not(.w-2) {
+  color: #4ade80 !important;
+  -webkit-text-fill-color: #4ade80 !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  font-size: 11px !important;
+}
+
+.w-2.h-2.rounded-full.bg-blue-400,
+.w-2.h-2.rounded-full.bg-emerald-400,
+.inline-flex .w-2.h-2.rounded-full {
+  background-color: #00ff66 !important;
+  box-shadow: 0 0 12px #00ff66 !important;
+  animation: neonPulse 1.8s infinite ease-in-out !important;
+}
+
+@keyframes neonPulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.35); opacity: 1; box-shadow: 0 0 18px #00ff66; }
+}
+
+/* --------------------------------------------------------------------------
+   Upload Area (Clean, Solid Glass - Never Cluttered)
+   -------------------------------------------------------------------------- */
+.border-dashed {
+  background: rgba(8, 16, 11, 0.94) !important;
+  border: 1.5px dashed rgba(74, 222, 128, 0.35) !important;
+  backdrop-filter: blur(28px) !important;
+  -webkit-backdrop-filter: blur(28px) !important;
+  border-radius: 22px !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(74, 222, 128, 0.12) !important;
+}
+
+.border-dashed:hover {
+  border-color: rgba(74, 222, 128, 0.8) !important;
+  background: rgba(11, 22, 15, 0.96) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(34, 197, 94, 0.25) !important;
+}
+
+.border-dashed .w-16.h-16,
+.border-dashed .w-14.h-14,
+.border-dashed .w-12.h-12 {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(21, 128, 61, 0.3)) !important;
+  border: 1px solid rgba(74, 222, 128, 0.4) !important;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3) !important;
+  border-radius: 20px !important;
+  color: #00ff66 !important;
+  transition: transform 0.3s ease;
+}
+
+.border-dashed:hover .w-16.h-16,
+.border-dashed:hover .w-14.h-14,
+.border-dashed:hover .w-12.h-12 {
+  transform: scale(1.08) rotate(-2deg);
+  border-color: #00ff66 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Pipeline & Feature Cards (Clean Glass Panels)
+   -------------------------------------------------------------------------- */
+.bg-\[\#12131C\],
+.bg-zinc-900,
+.bg-zinc-900\/50,
+.bg-zinc-900\/80 {
+  background: rgba(8, 16, 11, 0.92) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(74, 222, 128, 0.2) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(74, 222, 128, 0.1) !important;
+  transition: all 0.25s ease;
+}
+
+.bg-\[\#12131C\]:hover {
+  border-color: rgba(74, 222, 128, 0.4) !important;
+  box-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.85), 0 0 25px rgba(34, 197, 94, 0.15) !important;
+}
+
+.grid .rounded-xl,
+.grid .rounded-2xl {
+  background: rgba(12, 24, 16, 0.75) !important;
+  border: 1px solid rgba(74, 222, 128, 0.16) !important;
+  backdrop-filter: blur(14px) !important;
+  transition: all 0.2s ease !important;
+}
+
+.grid .rounded-xl:hover,
+.grid .rounded-2xl:hover {
+  background: rgba(18, 36, 24, 0.9) !important;
+  border-color: rgba(74, 222, 128, 0.5) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.6), 0 0 18px rgba(34, 197, 94, 0.25) !important;
+}
+
+.grid svg,
+.space-y-4 svg {
+  color: var(--neon-green-bright);
+}
+
+/* --------------------------------------------------------------------------
+   Master Prompt Viewer (Clean Studio Terminal)
+   -------------------------------------------------------------------------- */
+#section-master-commercial-prompt {
+  background: rgba(8, 16, 11, 0.96) !important;
+  border: 1.5px solid rgba(74, 222, 128, 0.35) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 30px 65px -15px rgba(0, 0, 0, 0.85), 0 0 45px rgba(34, 197, 94, 0.2), inset 0 1px 0 rgba(74, 222, 128, 0.15) !important;
+  overflow: hidden;
+  position: relative;
+}
+
+#section-master-commercial-prompt::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ff66, #4ade80, transparent);
+  filter: drop-shadow(0 0 8px #00ff66);
+}
+
+pre, code, textarea {
+  font-family: 'JetBrains Mono', monospace !important;
+  background: rgba(4, 9, 6, 0.92) !important;
+  border: 1px solid rgba(74, 222, 128, 0.2) !important;
+  border-radius: 16px !important;
+  color: #bbf7d0 !important;
+  line-height: 1.75 !important;
+}
+
+/* --------------------------------------------------------------------------
+   CTA Buttons & Interactive Actions
+   -------------------------------------------------------------------------- */
+.btn-cta-primary,
+button.bg-blue-600,
+button.bg-blue-500,
+button[class*="bg-blue-"] {
+  background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #22c55e 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  box-shadow: 0 10px 30px -4px rgba(34, 197, 94, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  transition: all 0.25s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-cta-primary:hover,
+button.bg-blue-600:hover,
+button.bg-blue-500:hover {
+  background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px -4px rgba(34, 197, 94, 0.75), 0 0 25px rgba(74, 222, 128, 0.4) !important;
+}
+
+.btn-cta-primary::after,
+button.bg-blue-600::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 45%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: rotate(25deg);
+  pointer-events: none;
+}
+
+.btn-cta-primary:hover::after,
+button.bg-blue-600:hover::after {
+  left: 130%;
+  transition: left 0.85s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Secondary Buttons */
+button.border-zinc-800,
+button.bg-zinc-800,
+button.bg-zinc-900 {
+  background: rgba(10, 22, 14, 0.75) !important;
+  border: 1px solid rgba(74, 222, 128, 0.25) !important;
+  backdrop-filter: blur(10px) !important;
+  color: #bbf7d0 !important;
+  transition: all 0.2s ease !important;
+}
+
+button.border-zinc-800:hover,
+button.bg-zinc-800:hover,
+button.bg-zinc-900:hover {
+  background: rgba(16, 36, 22, 0.9) !important;
+  border-color: rgba(74, 222, 128, 0.5) !important;
+  color: #00ff66 !important;
+  transform: translateY(-1.5px);
+}
+
+/* Utility Overrides */
+[class*="text-blue-"] {
+  color: #4ade80 !important;
+}
+
+[class*="border-blue-"] {
+  border-color: rgba(74, 222, 128, 0.4) !important;
+}
+
+[class*="bg-blue-950"] {
+  background-color: rgba(8, 26, 14, 0.7) !important;
+}
+
+[class*="hover:border-blue-"]:hover {
+  border-color: #00ff66 !important;
+}

@@ -4,6 +4,7 @@
   "private": true,
   "description": "CineFlow AI — Turn One Product Image Into A Cinematic 10-Second Commercial for Google Flow & Veo",
   "scripts": {
+    "build": "echo 'Ready'",
     "start": "node server.js",
     "dev": "node server.js"
   },
